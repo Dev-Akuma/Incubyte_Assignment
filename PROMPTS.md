@@ -454,3 +454,17 @@ Please do the following in `backend/tests/api/test_vehicles.py`:
 1. **Test Suite - Not Found:** Add a test case called `test_delete_vehicle_not_found_admin`. Use the `admin_client` to send a `DELETE` request to `/api/vehicles/9999` (an ID that does not exist). Assert that the response status code is 404 Not Found.
 2. **Test Suite - Unauthorized:** Add a test case called `test_delete_vehicle_unauthorized`. Use the unauthenticated `client` to send a `DELETE` request to `/api/vehicles/1`. Assert that the response status code is 401 Unauthorized. (This proves the admin dependency correctly falls back to checking if the user is authenticated at all).
 3. Run the tests. If the 404 test fails, ensure the `delete_vehicle` method in `app/services/vehicle.py` explicitly raises a 404 `HTTPException` when the repository returns `None`.
+
+# PHASE - III : Inventory Operations
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are starting Phase 3 (Inventory Operations) for our Car Dealership Inventory System.
+
+CRITICAL CONSTRAINT: Do NOT write any implementation code for the sale route or service. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
+
+Please do the following step-by-step:
+1. **New Test File (`backend/tests/api/test_inventory.py`):** Create this file to handle inventory-specific business logic tests. 
+2. **Write the Test:** Add a test case called `test_record_vehicle_sale_success`.
+   - Inject the `authorized_client` fixture (you may need to import it or rely on `conftest.py`).
+   - Use the `authorized_client` to `POST` a new vehicle to `/api/vehicles` with a starting `quantity` of 5, and extract its `id`.
+   - Make a `POST` request to a new endpoint `/api/vehicles/{id}/sale` with a JSON payload: `{"quantity": 2}` (representing the number of cars sold).
+   - Assert that the response status code is 200 OK.
+   - Assert that the response JSON shows the vehicle's new `quantity` is exactly 3.
