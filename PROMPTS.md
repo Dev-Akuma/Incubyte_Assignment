@@ -117,7 +117,7 @@ Please refactor `backend/tests/api/test_auth.py` to be cleaner and more scalable
 3. Update `test_auth.py` to inject these fixtures into `test_register_user_success` rather than hardcoding them.
 4. Ensure the test still passes.
 
-# Implementing Login
+# RED : Implementing Login
 Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are continuing Phase 1 (Authentication) for our Car Dealership Inventory System.
 
 CRITICAL CONSTRAINT: Do NOT write any implementation code for the login route, services, or JWT generation. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
@@ -129,3 +129,21 @@ Please do the following:
 4. Then, make a `POST` request to `/api/auth/login`. Since FastAPI typically uses OAuth2 with password flow, send the credentials (username and password) as form data (`data=...`), NOT JSON.
 5. Assert that the response status code is 200 OK.
 6. Assert that the JSON response contains an `access_token` and `token_type` == "bearer".
+
+# GREEN : Implementing Login
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `POST /api/auth/login` endpoint.
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). We need to implement JWT generation and password verification.
+
+Please implement the following step-by-step:
+
+1. **Config (`app/core/config.py`):** Create a basic settings class (using Pydantic `BaseSettings` if available) with `SECRET_KEY`, `ALGORITHM` (e.g., "HS256"), and `ACCESS_TOKEN_EXPIRE_MINUTES`.
+2. **Schemas (`app/schemas/token.py`):** Create a Pydantic model `Token` containing `access_token` (str) and `token_type` (str).
+3. **Core/Security (`app/core/security.py`):** 
+   - Implement `verify_password(plain_password, hashed_password)`.
+   - Implement `create_access_token(data: dict, expires_delta)` using `python-jose`.
+4. **Repositories (`app/repositories/user.py`):** Add a method `get_user_by_username(db, username: str)` to fetch the user from the database.
+5. **Services (`app/services/user.py` or `app/services/auth.py`):** Implement `authenticate_user(db, username, password)` that uses the repository and security verify function.
+6. **API Router (`app/api/auth.py`):** Implement the `POST /api/auth/login` endpoint. It must accept FastAPI's `OAuth2PasswordRequestForm` as a dependency, call the authentication service, generate the JWT, and return the `Token` schema.
+
+Ensure the tests pass after adding this implementation.
