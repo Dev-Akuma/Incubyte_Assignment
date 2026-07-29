@@ -258,3 +258,20 @@ Please do the following:
 4. Next, use the `authorized_client` to make a `GET` request to `/api/vehicles`.
 5. Assert that the response status code is 200 OK.
 6. Assert that the response data is a list, that its length is at least 2, and that it contains the data for the vehicles you just created.
+
+# GREEN PHASE : Inventory List Implementation for green
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `GET /api/vehicles` endpoint.
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Repositories (`app/repositories/vehicle.py`):** Add a method `get_all_vehicles(db)` that executes a query to return all vehicles from the database.
+2. **Services (`app/services/vehicle.py`):** Add a method `get_vehicles(db)` that calls the repository method.
+3. **API Router (`app/api/vehicles.py`):** Implement the `GET /api/vehicles` endpoint. It must:
+   - Depend on `get_current_user` to ensure the route is protected.
+   - Set `response_model=list[VehicleResponse]`.
+   - Call the service layer to fetch the vehicles.
+   - Return the list of vehicles.
+
+   

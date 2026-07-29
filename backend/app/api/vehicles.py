@@ -18,3 +18,13 @@ def create_new_vehicle(
     Create new vehicle.
     """
     return vehicle_service.create_vehicle(db=db, vehicle=vehicle_in)
+
+@router.get("", response_model=list[VehicleResponse])
+def get_all_vehicles(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Retrieve all vehicles.
+    """
+    return vehicle_service.get_vehicles(db=db)
