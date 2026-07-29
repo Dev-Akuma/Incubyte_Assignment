@@ -445,3 +445,12 @@ Please implement the following step-by-step:
    - **Crucial:** Protect this route by injecting `Depends(get_current_admin_user)`.
    - Call the service layer to delete the vehicle.
    - Set the route to return `status_code=status.HTTP_204_NO_CONTENT` (do not return a body).
+
+## REFACTOR : test for edge-cases
+Act as an expert Full-Stack Developer. Our vehicle deletion tests are passing, but we need to perform the "Refactor" step by adding robust edge-case testing for the DELETE endpoint.
+
+Please do the following in `backend/tests/api/test_vehicles.py`:
+
+1. **Test Suite - Not Found:** Add a test case called `test_delete_vehicle_not_found_admin`. Use the `admin_client` to send a `DELETE` request to `/api/vehicles/9999` (an ID that does not exist). Assert that the response status code is 404 Not Found.
+2. **Test Suite - Unauthorized:** Add a test case called `test_delete_vehicle_unauthorized`. Use the unauthenticated `client` to send a `DELETE` request to `/api/vehicles/1`. Assert that the response status code is 401 Unauthorized. (This proves the admin dependency correctly falls back to checking if the user is authenticated at all).
+3. Run the tests. If the 404 test fails, ensure the `delete_vehicle` method in `app/services/vehicle.py` explicitly raises a 404 `HTTPException` when the repository returns `None`.

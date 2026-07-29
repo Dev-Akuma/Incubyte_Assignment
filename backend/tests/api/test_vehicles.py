@@ -220,3 +220,17 @@ def test_delete_vehicle_forbidden_regular_user(authorized_client):
 
     delete_response = authorized_client.delete(f"/api/vehicles/{vehicle_id}")
     assert delete_response.status_code == 403
+
+def test_delete_vehicle_not_found_admin(admin_client):
+    """
+    Test that deleting a non-existent vehicle returns 404 Not Found.
+    """
+    response = admin_client.delete("/api/vehicles/9999")
+    assert response.status_code == 404
+
+def test_delete_vehicle_unauthorized(client):
+    """
+    Test that an unauthenticated user cannot delete a vehicle.
+    """
+    response = client.delete("/api/vehicles/1")
+    assert response.status_code == 401
