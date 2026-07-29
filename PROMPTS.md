@@ -539,3 +539,20 @@ Please review and refactor the Vehicle Restock implementation:
 3. **Test Suite - Not Found:** Add a test called `test_restock_vehicle_not_found`. Use the `authorized_client` to send a restock request to an ID that does not exist (e.g., 9999). Assert that the response status code is 404 Not Found.
 4. **Test Suite - Unauthorized:** Add a test called `test_restock_vehicle_unauthorized`. Use the unauthenticated `client` to send a restock request to an existing vehicle. Assert that the response status code is 401 Unauthorized.
 5. Run the tests to ensure everything is green.
+
+# PHASE - IV : Frontend
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We have completed our backend API and are now starting the Frontend Phase using React, TypeScript, and Vite.
+
+CRITICAL CONSTRAINT: Do NOT write any implementation code for the Login component yet. We are strictly in the "Red" phase of TDD. Your task is to outline the setup and write a FAILING test.
+
+Please do the following step-by-step:
+
+1. **Environment Setup (Instructions):** Provide the exact terminal commands to initialize a Vite React (TypeScript) project in a `frontend` folder, and install `vitest`, `jsdom`, `@testing-library/react`, and `@testing-library/jest-dom` as dev dependencies. Provide the minimal `vitest.config.ts` required to support React and DOM testing.
+2. **Write the Failing Test (`frontend/src/__tests__/Login.test.tsx`):** Create a test file for a `Login` component.
+   - Import `render` and `screen` from `@testing-library/react`.
+   - Write a test called "renders login form with email and password fields".
+   - Render the `<Login />` component.
+   - Assert that an input with the placeholder "Email" exists.
+   - Assert that an input with the placeholder "Password" exists.
+   - Assert that a button with the text "Login" exists.
+
