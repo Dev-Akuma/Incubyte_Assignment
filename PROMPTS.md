@@ -13,3 +13,14 @@
   └── tests/
 - Initialize SQLite as the database.
 - Initialize Alembic and create the first empty/baseline migration.
+
+### 2. Frontend Setup (React + Vite)
+- Initialize a new React project using Vite in a `/frontend` directory.
+- Install the following dependencies: Tailwind CSS (and initialize its config), Axios, and React Router.
+- Create the following folder structure inside `src/`:
+  frontend/src/
+  ├── components/
+  ├── pages/
+  ├── services/
+  ├── hooks/
+  └── layouts/
