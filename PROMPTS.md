@@ -218,3 +218,20 @@ Please do the following step-by-step:
    - Assert that the response status code is 201 Created.
    - Assert that the JSON response contains an `id` and matches the submitted payload.
 
+# GREEN : Implementing Vehicle Creation 
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `POST /api/vehicles` endpoint.
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Schemas (`app/schemas/vehicle.py`):** Create Pydantic models for `VehicleCreate` (make: str, model: str, category: str, price: float, quantity: int) and `VehicleResponse` (adds id: int).
+2. **Models (`app/models/vehicle.py`):** Create a SQLAlchemy `Vehicle` model with the corresponding fields.
+3. **Dependencies (`app/api/deps.py` or `app/core/security.py`):** Create a FastAPI dependency (e.g., `get_current_user`) that extracts the JWT token from the `Authorization` header, decodes it, and fetches the user from the database. If the token is invalid or missing, raise a 401 Unauthorized exception.
+4. **Repositories (`app/repositories/vehicle.py`):** Add a method `create_vehicle(db, vehicle: VehicleCreate)` to insert the vehicle into the database.
+5. **API Router (`app/api/vehicles.py`):** Implement the `POST /api/vehicles` endpoint. It must:
+   - Depend on `get_current_user` to ensure the route is protected.
+   - Accept the `VehicleCreate` schema.
+   - Save the vehicle using the repository.
+   - Return a 201 Created status code with the `VehicleResponse`.
+6. **Main App (`app/main.py`):** Include the new `vehicles` router in the FastAPI application.

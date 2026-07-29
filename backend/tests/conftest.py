@@ -7,6 +7,7 @@ from sqlalchemy.pool import StaticPool
 from app.main import app
 from app.core.database import Base, get_db
 from app.models.user import User  # Ensure models are imported before create_all
+from app.models.vehicle import Vehicle
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
 
