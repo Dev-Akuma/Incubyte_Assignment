@@ -203,3 +203,18 @@ CONSTRAINTS:
 
 OUTPUT:
 - Provide the full updated content of the README.md file.
+
+# PHASE II : Vehicle CRUD
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are starting Phase 2 (Vehicle CRUD) for our Car Dealership Inventory System.
+
+CRITICAL CONSTRAINT: Do NOT write any implementation code for the vehicles routes, models, or schemas. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
+
+Please do the following step-by-step:
+1. **Auth Fixture (`backend/tests/conftest.py`):** Create a new fixture called `authorized_client`. This fixture should use the existing test client, register a test user, log them in to get an `access_token`, and return the `TestClient` with the `Authorization: Bearer <token>` header pre-set.
+2. **Test File (`backend/tests/api/test_vehicles.py`):** Create this new file.
+3. **Write the Test:** Add a test case called `test_create_vehicle_success`. 
+   - Inject the `authorized_client` fixture.
+   - Make a `POST` request to `/api/vehicles` with a JSON payload containing: `make` (str), `model` (str), `category` (str), `price` (float/int), and `quantity` (int).
+   - Assert that the response status code is 201 Created.
+   - Assert that the JSON response contains an `id` and matches the submitted payload.
+

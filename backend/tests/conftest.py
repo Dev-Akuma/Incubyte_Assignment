@@ -50,3 +50,20 @@ def valid_user_payload():
         "email": "testuser@example.com",
         "password": "securepassword123"
     }
+
+@pytest.fixture(scope="function")
+def authorized_client(client, valid_user_payload):
+    # Register the user
+    client.post("/api/auth/register", json=valid_user_payload)
+    
+    # Login to get the access token
+    login_data = {
+        "username": valid_user_payload["username"],
+        "password": valid_user_payload["password"]
+    }
+    response = client.post("/api/auth/login", data=login_data)
+    token = response.json()["access_token"]
+    
+    # Set the Authorization header for future requests
+    client.headers.update({"Authorization": f"Bearer {token}"})
+    return client
