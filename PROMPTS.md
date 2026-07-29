@@ -426,3 +426,22 @@ Please do the following step-by-step:
    - Use the `authorized_client` (regular user) to `POST` a new vehicle.
    - Attempt to send a `DELETE` request to `/api/vehicles/{id}` using the regular `authorized_client`.
    - Assert the status code is 403 (Forbidden).
+
+## GREEN : Implementing Admin-only vehicle deletion
+Act as an expert Full-Stack Developer following strict TDD. We currently have failing tests (Red state) for the `DELETE /api/vehicles/{id}` endpoint, which requires Admin privileges.
+
+Your task is to write the minimum implementation code necessary to make these tests pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Security Dependency (`app/api/deps.py` or `app/core/security.py`):** Create a new FastAPI dependency called `get_current_admin_user`. 
+   - It should depend on your existing `get_current_user` dependency.
+   - It must check if `current_user.is_admin` is True.
+   - If `is_admin` is False, it must raise an `HTTPException` with status code 403 (Forbidden) and the detail "Not enough privileges".
+   - If True, it returns the current user.
+2. **Repositories (`app/repositories/vehicle.py`):** Add `delete_vehicle(db, db_vehicle)` to delete the vehicle object from the database and commit the transaction.
+3. **Services (`app/services/vehicle.py`):** Add `delete_vehicle(db, vehicle_id: int)`. It should use the repository to fetch the vehicle by ID. If not found, raise a 404 `HTTPException`. Otherwise, pass the vehicle to the repository's delete method.
+4. **API Router (`app/api/vehicles.py`):** Implement the `DELETE /api/vehicles/{id}` endpoint.
+   - **Crucial:** Protect this route by injecting `Depends(get_current_admin_user)`.
+   - Call the service layer to delete the vehicle.
+   - Set the route to return `status_code=status.HTTP_204_NO_CONTENT` (do not return a body).

@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from app.schemas.vehicle import VehicleCreate, VehicleResponse, VehicleUpdate
 from app.core.database import get_db
-from app.api.deps import get_current_user
+from app.api.deps import get_current_user, get_current_admin_user
 from app.models.user import User
 from app.services import vehicle as vehicle_service
 
@@ -62,3 +62,14 @@ def update_vehicle(
     Update a vehicle.
     """
     return vehicle_service.update_vehicle(db=db, vehicle_id=id, vehicle_update=vehicle_in)
+
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_vehicle(
+    id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_admin_user)
+):
+    """
+    Delete a vehicle (Admin only).
+    """
+    vehicle_service.delete_vehicle(db=db, vehicle_id=id)

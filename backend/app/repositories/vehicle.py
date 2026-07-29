@@ -44,3 +44,7 @@ def update_vehicle(db: Session, db_vehicle: Vehicle, update_data: dict) -> Vehic
     db.commit()
     db.refresh(db_vehicle)
     return db_vehicle
+
+def delete_vehicle(db: Session, db_vehicle: Vehicle):
+    db.delete(db_vehicle)
+    db.commit()

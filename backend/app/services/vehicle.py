@@ -31,3 +31,9 @@ def update_vehicle(db: Session, vehicle_id: int, vehicle_update: VehicleUpdate) 
     
     update_data = vehicle_update.model_dump(exclude_unset=True)
     return vehicle_repo.update_vehicle(db, db_vehicle, update_data)
+
+def delete_vehicle(db: Session, vehicle_id: int):
+    db_vehicle = vehicle_repo.get_vehicle_by_id(db, vehicle_id)
+    if not db_vehicle:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Vehicle not found")
+    vehicle_repo.delete_vehicle(db, db_vehicle)
