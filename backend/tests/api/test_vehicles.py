@@ -196,3 +196,27 @@ def test_update_vehicle_unauthorized(client):
     update_payload = {"price": 1000.0}
     response = client.put("/api/vehicles/1", json=update_payload)
     assert response.status_code == 401
+
+def test_delete_vehicle_success_admin(admin_client):
+    """
+    Test that an admin can delete a vehicle.
+    """
+    create_response = admin_client.post("/api/vehicles", json={
+        "make": "Toyota", "model": "Camry", "category": "Sedan", "price": 25000.0, "quantity": 10
+    })
+    vehicle_id = create_response.json()["id"]
+
+    delete_response = admin_client.delete(f"/api/vehicles/{vehicle_id}")
+    assert delete_response.status_code in [200, 204]
+
+def test_delete_vehicle_forbidden_regular_user(authorized_client):
+    """
+    Test that a regular user cannot delete a vehicle.
+    """
+    create_response = authorized_client.post("/api/vehicles", json={
+        "make": "Toyota", "model": "Camry", "category": "Sedan", "price": 25000.0, "quantity": 10
+    })
+    vehicle_id = create_response.json()["id"]
+
+    delete_response = authorized_client.delete(f"/api/vehicles/{vehicle_id}")
+    assert delete_response.status_code == 403

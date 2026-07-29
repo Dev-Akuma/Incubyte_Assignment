@@ -68,3 +68,29 @@ def authorized_client(client, valid_user_payload):
     # Set the Authorization header for future requests
     client.headers.update({"Authorization": f"Bearer {token}"})
     return client
+
+@pytest.fixture(scope="function")
+def admin_user_payload():
+    return {
+        "username": "adminuser",
+        "email": "admin@example.com",
+        "password": "adminpassword123",
+        "is_admin": True
+    }
+
+@pytest.fixture(scope="function")
+def admin_client(client, admin_user_payload):
+    # Register the admin
+    client.post("/api/auth/register", json=admin_user_payload)
+    
+    # Login to get the access token
+    login_data = {
+        "username": admin_user_payload["username"],
+        "password": admin_user_payload["password"]
+    }
+    response = client.post("/api/auth/login", data=login_data)
+    token = response.json()["access_token"]
+    
+    # Set the Authorization header for future requests
+    client.headers.update({"Authorization": f"Bearer {token}"})
+    return client

@@ -408,3 +408,21 @@ Please do the following in `backend/tests/api/test_vehicles.py`:
 1. **Test Suite - Not Found:** Add a test case called `test_update_vehicle_not_found`. Use the `authorized_client` to send a `PUT` request to `/api/vehicles/9999` (an ID that does not exist) with valid update payload. Assert that the response status code is 404 Not Found.
 2. **Test Suite - Unauthorized:** Add a test case called `test_update_vehicle_unauthorized`. Use the unauthenticated `client` to send a `PUT` request to `/api/vehicles/1`. Assert that the response status code is 401 Unauthorized.
 3. Run the tests. If the 404 test fails because our service layer isn't properly raising the `HTTPException`, fix the `update_vehicle` method in `app/services/vehicle.py` to ensure it raises a 404 when the repository returns `None`.
+
+## RED : Failing Test Cases for Admin
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are moving to the DELETE endpoint for Phase 2, which introduces Role-Based Access Control (Admin only).
+
+CRITICAL CONSTRAINT: Do NOT write the implementation for the DELETE route or the role verification dependency yet. We are strictly in the "Red" phase of TDD. Your task is to update the User model to support roles, set up the test fixture, and write the FAILING tests.
+
+Please do the following step-by-step:
+
+1. **User Model & Schema (`app/models/user.py` & `app/schemas/user.py`):** Add an `is_admin` boolean column/field, defaulting to `False`. (This is necessary just so our test database can insert an admin).
+2. **Admin Fixture (`backend/tests/conftest.py`):** Create a new fixture called `admin_client`. It should behave exactly like `authorized_client`, but it creates a user with `is_admin=True` and returns a TestClient authenticated with that admin's token.
+3. **Write Failing Test 1 - Success (`backend/tests/api/test_vehicles.py`):** Add `test_delete_vehicle_success_admin`. 
+   - Use the `admin_client` to `POST` a new vehicle to `/api/vehicles`.
+   - Extract the `id`, then use `admin_client` to send a `DELETE` request to `/api/vehicles/{id}`.
+   - Assert the status code is 204 (No Content) or 200 (OK).
+4. **Write Failing Test 2 - Forbidden:** Add `test_delete_vehicle_forbidden_regular_user`.
+   - Use the `authorized_client` (regular user) to `POST` a new vehicle.
+   - Attempt to send a `DELETE` request to `/api/vehicles/{id}` using the regular `authorized_client`.
+   - Assert the status code is 403 (Forbidden).
