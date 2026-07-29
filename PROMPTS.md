@@ -510,3 +510,21 @@ Please do the following step-by-step:
    - Make a `POST` request to a new endpoint `/api/vehicles/{id}/restock` with a JSON payload: `{"quantity": 3}` (representing the number of new cars received).
    - Assert that the response status code is 200 OK.
    - Assert that the response JSON shows the vehicle's new `quantity` is exactly 8.
+
+## GREEN : Implementing the Restock Logic
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `POST /api/vehicles/{id}/restock` endpoint.
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Schemas (`app/schemas/vehicle.py`):** Create a new Pydantic model called `VehicleRestock` that accepts `quantity: int`.
+2. **Services (`app/services/vehicle.py`):** Add a method called `restock_vehicle(db, vehicle_id: int, restock_data: VehicleRestock)`. 
+   - Fetch the vehicle using the repository's `get_vehicle_by_id`.
+   - If not found, raise a 404 `HTTPException`.
+   - Add `restock_data.quantity` to the vehicle's current `quantity`.
+   - Save the changes using the repository's `update_vehicle` method and return the updated vehicle.
+3. **API Router (`app/api/vehicles.py`):** Implement the `POST /api/vehicles/{id}/restock` endpoint. 
+   - Depend on `get_current_user` to ensure the route is protected.
+   - Accept the `id` as a path parameter and `VehicleRestock` as the request body.
+   - Call the `restock_vehicle` service method and return the result using `response_model=VehicleResponse`.

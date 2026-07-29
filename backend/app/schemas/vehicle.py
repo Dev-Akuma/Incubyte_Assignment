@@ -21,6 +21,9 @@ class VehicleUpdate(BaseModel):
 class VehicleSale(BaseModel):
     quantity: int = Field(..., gt=0, description="The number of vehicles sold must be greater than zero")
 
+class VehicleRestock(BaseModel):
+    quantity: int = Field(..., gt=0, description="The number of vehicles restocked must be greater than zero")
+
 class VehicleResponse(VehicleBase):
     id: int
 

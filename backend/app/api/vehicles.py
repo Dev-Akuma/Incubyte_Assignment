@@ -1,7 +1,7 @@
 from typing import Optional
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
-from app.schemas.vehicle import VehicleCreate, VehicleResponse, VehicleUpdate, VehicleSale
+from app.schemas.vehicle import VehicleCreate, VehicleResponse, VehicleUpdate, VehicleSale, VehicleRestock
 from app.core.database import get_db
 from app.api.deps import get_current_user, get_current_admin_user
 from app.models.user import User
@@ -85,3 +85,15 @@ def record_sale(
     Record a sale of a vehicle.
     """
     return vehicle_service.record_sale(db=db, vehicle_id=id, sale_data=sale_in)
+
+@router.post("/{id}/restock", response_model=VehicleResponse)
+def restock_vehicle(
+    id: int,
+    restock_in: VehicleRestock,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Record a restock of a vehicle.
+    """
+    return vehicle_service.restock_vehicle(db=db, vehicle_id=id, restock_data=restock_in)

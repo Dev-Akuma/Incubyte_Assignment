@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from app.models.vehicle import Vehicle
-from app.schemas.vehicle import VehicleCreate, VehicleUpdate, VehicleSale
+from app.schemas.vehicle import VehicleCreate, VehicleUpdate, VehicleSale, VehicleRestock
 from app.repositories import vehicle as vehicle_repo
 
 def create_vehicle(db: Session, vehicle: VehicleCreate) -> Vehicle:
@@ -47,4 +47,12 @@ def record_sale(db: Session, vehicle_id: int, sale_data: VehicleSale) -> Vehicle
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Not enough vehicles in stock")
     
     update_data = {"quantity": db_vehicle.quantity - sale_data.quantity}
+    return vehicle_repo.update_vehicle(db, db_vehicle, update_data)
+
+def restock_vehicle(db: Session, vehicle_id: int, restock_data: VehicleRestock) -> Vehicle:
+    db_vehicle = vehicle_repo.get_vehicle_by_id(db, vehicle_id)
+    if not db_vehicle:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Vehicle not found")
+    
+    update_data = {"quantity": db_vehicle.quantity + restock_data.quantity}
     return vehicle_repo.update_vehicle(db, db_vehicle, update_data)
