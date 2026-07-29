@@ -18,6 +18,9 @@ class VehicleUpdate(BaseModel):
     price: Optional[float] = Field(None, gt=0, description="The price must be greater than zero")
     quantity: Optional[int] = Field(None, ge=0, description="The quantity must be greater than or equal to zero")
 
+class VehicleSale(BaseModel):
+    quantity: int = Field(..., gt=0, description="The number of vehicles sold must be greater than zero")
+
 class VehicleResponse(VehicleBase):
     id: int
 

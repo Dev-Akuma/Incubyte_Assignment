@@ -1,7 +1,7 @@
 from typing import Optional
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
-from app.schemas.vehicle import VehicleCreate, VehicleResponse, VehicleUpdate
+from app.schemas.vehicle import VehicleCreate, VehicleResponse, VehicleUpdate, VehicleSale
 from app.core.database import get_db
 from app.api.deps import get_current_user, get_current_admin_user
 from app.models.user import User
@@ -73,3 +73,15 @@ def delete_vehicle(
     Delete a vehicle (Admin only).
     """
     vehicle_service.delete_vehicle(db=db, vehicle_id=id)
+
+@router.post("/{id}/sale", response_model=VehicleResponse)
+def record_sale(
+    id: int,
+    sale_in: VehicleSale,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Record a sale of a vehicle.
+    """
+    return vehicle_service.record_sale(db=db, vehicle_id=id, sale_data=sale_in)

@@ -468,3 +468,21 @@ Please do the following step-by-step:
    - Make a `POST` request to a new endpoint `/api/vehicles/{id}/sale` with a JSON payload: `{"quantity": 2}` (representing the number of cars sold).
    - Assert that the response status code is 200 OK.
    - Assert that the response JSON shows the vehicle's new `quantity` is exactly 3.
+
+## GREEN : Implementing Vehicle Sale Point
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `POST /api/vehicles/{id}/sale` endpoint.
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Schemas (`app/schemas/vehicle.py`):** Create a new Pydantic model called `VehicleSale` that accepts `quantity: int`.
+2. **Services (`app/services/vehicle.py`):** Add a method called `record_sale(db, vehicle_id: int, sale_data: VehicleSale)`. 
+   - Fetch the vehicle using the repository's `get_vehicle_by_id`.
+   - If not found, raise a 404 `HTTPException`.
+   - Subtract `sale_data.quantity` from the vehicle's current `quantity`.
+   - Save the changes using the repository's `update_vehicle` method (or a new specific method if you prefer) and return the updated vehicle.
+3. **API Router (`app/api/vehicles.py`):** Implement the `POST /api/vehicles/{id}/sale` endpoint. 
+   - Depend on `get_current_user` to ensure the route is protected.
+   - Accept the `id` as a path parameter and `VehicleSale` as the request body.
+   - Call the `record_sale` service method and return the result using `response_model=VehicleResponse`.
