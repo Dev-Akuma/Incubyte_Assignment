@@ -117,7 +117,7 @@ Please refactor `backend/tests/api/test_auth.py` to be cleaner and more scalable
 3. Update `test_auth.py` to inject these fixtures into `test_register_user_success` rather than hardcoding them.
 4. Ensure the test still passes.
 
-# Phase II : Implementing Login (RED)
+## RED : Implementing Login 
 Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are continuing Phase 1 (Authentication) for our Car Dealership Inventory System.
 
 CRITICAL CONSTRAINT: Do NOT write any implementation code for the login route, services, or JWT generation. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
@@ -204,7 +204,7 @@ CONSTRAINTS:
 OUTPUT:
 - Provide the full updated content of the README.md file.
 
-## RED Vehicle CRUD
+# Phase - II Vehicle CRUD
 Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are starting Phase 2 (Vehicle CRUD) for our Car Dealership Inventory System.
 
 CRITICAL CONSTRAINT: Do NOT write any implementation code for the vehicles routes, models, or schemas. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
@@ -246,7 +246,7 @@ Please review and refactor the Vehicle creation implementation:
 3. **Test Suite (`backend/tests/api/test_vehicles.py`):** Add a test case called `test_create_vehicle_unauthorized`. This test should use the standard, unauthenticated `client` (not the `authorized_client` fixture) to attempt to POST to `/api/vehicles`. Assert that it returns a 401 Unauthorized status code.
 4. Run the tests to ensure everything is green.
 
-# RED PHASE III : Inventory List 
+# RED : Inventory List 
 Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are continuing Phase 2 (Vehicle CRUD) for our Car Dealership Inventory System.
 
 CRITICAL CONSTRAINT: Do NOT write any implementation code for the GET route in the router or service. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
@@ -285,7 +285,7 @@ Please review and refactor the Vehicle list implementation:
 4. **Test Suite - Pagination:** Ensure the existing `test_get_all_vehicles_success` still passes. Optionally, add a small test to verify the `limit` query parameter works (e.g., limit=1 returns only 1 vehicle).
 5. Run the tests to ensure everything remains green.
 
-# README.md progress documentation after PHASE III
+# README.md progress documentation after Inventory List
 ACT as a Technical Writer and Senior Developer.
 CONTEXT: We have just completed Phase 3 (Inventory Operations) of the Incubyte Car Dealership Kata.
 CURRENT STATE:
@@ -330,7 +330,7 @@ CONSTRAINTS:
 OUTPUT:
 - Provide the full updated content of the README.md file.
 
-# PHASE - IV Searching and Filtering
+## RED :Searching and Filtering
 Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are continuing Phase 2 (Vehicle CRUD) for our Car Dealership Inventory System.
 
 CRITICAL CONSTRAINT: Do NOT write any implementation code for the search route, service, or repository. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
