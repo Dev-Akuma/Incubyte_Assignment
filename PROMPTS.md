@@ -382,3 +382,20 @@ Please do the following:
 4. Make a `PUT` request using the `authorized_client` to `/api/vehicles/{id}` with a JSON payload containing updated details (e.g., changing the `price` and `quantity`).
 5. Assert that the response status code is 200 OK.
 6. Assert that the response JSON matches the updated fields (e.g., the new price and quantity are returned).
+
+# GREEN : Update and Delete for RBAC 
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `PUT /api/vehicles/{id}` endpoint.
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Schemas (`app/schemas/vehicle.py`):** Create a `VehicleUpdate` Pydantic model. All fields (`make`, `model`, `category`, `price`, `quantity`) should be `Optional` so users can perform partial updates.
+2. **Repositories (`app/repositories/vehicle.py`):** 
+   - Add `get_vehicle_by_id(db, vehicle_id: int)` to fetch a single vehicle.
+   - Add `update_vehicle(db, db_vehicle, update_data: dict)` to apply changes to the fetched vehicle, commit, refresh, and return it.
+3. **Services (`app/services/vehicle.py`):** Add `update_vehicle(db, vehicle_id: int, vehicle_update: VehicleUpdate)`. It should first fetch the vehicle using the repository. If the vehicle is not found, raise an `HTTPException` with status code 404. Otherwise, exclude unset fields from `vehicle_update`, pass the data to the repository's update method, and return the result.
+4. **API Router (`app/api/vehicles.py`):** Implement the `PUT /api/vehicles/{id}` endpoint. 
+   - Depend on `get_current_user` to ensure it is protected.
+   - Accept the `id` as a path parameter and `VehicleUpdate` as the body.
+   - Call the service layer and return the updated vehicle using `response_model=VehicleResponse`.

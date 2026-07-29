@@ -34,3 +34,13 @@ def search_vehicles(
     if max_price is not None:
         query = query.filter(Vehicle.price <= max_price)
     return query.offset(skip).limit(limit).all()
+
+def get_vehicle_by_id(db: Session, vehicle_id: int) -> Vehicle | None:
+    return db.query(Vehicle).filter(Vehicle.id == vehicle_id).first()
+
+def update_vehicle(db: Session, db_vehicle: Vehicle, update_data: dict) -> Vehicle:
+    for key, value in update_data.items():
+        setattr(db_vehicle, key, value)
+    db.commit()
+    db.refresh(db_vehicle)
+    return db_vehicle

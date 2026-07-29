@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel, ConfigDict, Field
 
 class VehicleBase(BaseModel):
@@ -9,6 +10,13 @@ class VehicleBase(BaseModel):
 
 class VehicleCreate(VehicleBase):
     pass
+
+class VehicleUpdate(BaseModel):
+    make: Optional[str] = None
+    model: Optional[str] = None
+    category: Optional[str] = None
+    price: Optional[float] = Field(None, gt=0, description="The price must be greater than zero")
+    quantity: Optional[int] = Field(None, ge=0, description="The quantity must be greater than or equal to zero")
 
 class VehicleResponse(VehicleBase):
     id: int
