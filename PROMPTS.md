@@ -62,3 +62,16 @@ Please do the following:
 1. Create a test file `backend/tests/api/test_auth.py`.
 2. Write a Pytest test case for `POST /api/auth/register` that checks if a new user can successfully register with valid credentials (e.g., username, password, email). The test should expect a 201 status code and a response containing the user's details (excluding the password) or a success message.
 3. Ensure the test imports the necessary testing tools (like `TestClient` from FastAPI), even if the FastAPI app isn't fully configured to handle it yet.
+
+# RED -> GREEN : Implement and fix the failing test     
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `POST /api/auth/register` endpoint in our FastAPI backend. 
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). Do NOT implement the login endpoint or any other features yet.
+
+Please implement the following step-by-step:
+
+1. **Schemas (`app/schemas/user.py`):** Create Pydantic models for `UserCreate` (username, email, password) and `UserResponse` (id, username, email). Ensure the response does not include the password.
+2. **Models (`app/models/user.py`):** Create a SQLAlchemy `User` model with fields for id, username, email (unique), and hashed_password. 
+3. **Core/Security (`app/core/security.py`):** Implement a simple password hashing utility using `bcrypt` (or `passlib`).
+4. **API Router (`app/api/auth.py`):** Create an APIRouter and implement the `POST /api/auth/register` endpoint. It should accept `UserCreate`, hash the password, save the user to the database, and return a 201 status code with the `UserResponse` model.
+5. **Main App (`app/main.py`):** Initialize the FastAPI app and include the auth router so the test client can actually reach the endpoint.
