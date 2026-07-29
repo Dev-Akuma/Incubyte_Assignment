@@ -246,7 +246,7 @@ Please review and refactor the Vehicle creation implementation:
 3. **Test Suite (`backend/tests/api/test_vehicles.py`):** Add a test case called `test_create_vehicle_unauthorized`. This test should use the standard, unauthenticated `client` (not the `authorized_client` fixture) to attempt to POST to `/api/vehicles`. Assert that it returns a 401 Unauthorized status code.
 4. Run the tests to ensure everything is green.
 
-# RED PHASE : Inventory List 
+# RED PHASE III : Inventory List 
 Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are continuing Phase 2 (Vehicle CRUD) for our Car Dealership Inventory System.
 
 CRITICAL CONSTRAINT: Do NOT write any implementation code for the GET route in the router or service. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
@@ -284,3 +284,48 @@ Please review and refactor the Vehicle list implementation:
 3. **Test Suite - Unauthorized (`backend/tests/api/test_vehicles.py`):** Add a test case called `test_get_all_vehicles_unauthorized` that uses the unauthenticated `client` to make a GET request to `/api/vehicles`. Assert it returns a 401 Unauthorized status code.
 4. **Test Suite - Pagination:** Ensure the existing `test_get_all_vehicles_success` still passes. Optionally, add a small test to verify the `limit` query parameter works (e.g., limit=1 returns only 1 vehicle).
 5. Run the tests to ensure everything remains green.
+
+# README.md progress documentation after PHASE III
+ACT as a Technical Writer and Senior Developer.
+CONTEXT: We have just completed Phase 3 (Inventory Operations) of the Incubyte Car Dealership Kata.
+CURRENT STATE:
+- Phase 0 (Setup), Phase 1 (Auth), Phase 2 (Vehicle CRUD) are complete.
+- Phase 3 (Inventory Operations) is now COMPLETE.
+- Implemented Features:
+  - POST /api/vehicles/:id/purchase: Decreases stock quantity (User role).
+  - POST /api/vehicles/:id/restock: Increases stock quantity (Admin role only).
+  - Business Logic: Prevents purchase if stock is zero; ensures only admins can restock.
+  - TDD Approach: Strict Red-Green-Refactor cycles for all inventory logic.
+  - Architecture: Service layer handles stock validation and updates; Repository handles DB interaction.
+
+GOAL: Update the root README.md to reflect Phase 3 completion.
+
+TASKS:
+1. **Update "Project Status" Section**:
+   - Change status to: "Phase 3: Inventory Operations - COMPLETED".
+   - List new features: "Stock management (Purchase/Restock)", "Role-based access control (Admin vs. User)", "Stock validation logic".
+
+2. **Update "API Endpoints" Table**:
+   - Add rows for:
+     - `POST /api/vehicles/{id}/purchase` (Protected, User)
+     - `POST /api/vehicles/{id}/restock` (Protected, Admin Only)
+   - Include a brief description of what each does.
+
+3. **Update "My AI Usage" Section (MANDATORY)**:
+   - Update the "How I used AI" list to include:
+     - "Used AI to design the inventory business logic (stock validation, role checks)."
+     - "Used AI to generate failing tests for edge cases (e.g., purchasing with zero stock)."
+     - "Used AI to implement Role-Based Access Control (RBAC) dependencies."
+   - Update the reflection: "AI helped me quickly prototype the RBAC logic and edge-case tests, allowing me to focus on ensuring the stock validation logic was robust and secure."
+
+4. **Formatting**:
+   - Ensure the "How to Run" section still works (no changes needed unless DB schema changed, but mention `alembic upgrade head` if new migrations were added).
+   - Keep the tone professional, technical, and transparent.
+
+CONSTRAINTS:
+- DO NOT mention Phase 4 features (Search/Filter) or Admin Panel UI (Phase 7) yet.
+- Ensure the "Co-authored-by" context is reflected in the commit history (not the README text).
+- Make sure the "My AI Usage" section is detailed and specific to Phase 3 tasks.
+
+OUTPUT:
+- Provide the full updated content of the README.md file.
