@@ -42,6 +42,9 @@ def record_sale(db: Session, vehicle_id: int, sale_data: VehicleSale) -> Vehicle
     db_vehicle = vehicle_repo.get_vehicle_by_id(db, vehicle_id)
     if not db_vehicle:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Vehicle not found")
+        
+    if db_vehicle.quantity < sale_data.quantity:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Not enough vehicles in stock")
     
     update_data = {"quantity": db_vehicle.quantity - sale_data.quantity}
     return vehicle_repo.update_vehicle(db, db_vehicle, update_data)

@@ -486,3 +486,14 @@ Please implement the following step-by-step:
    - Depend on `get_current_user` to ensure the route is protected.
    - Accept the `id` as a path parameter and `VehicleSale` as the request body.
    - Call the `record_sale` service method and return the result using `response_model=VehicleResponse`.
+
+# REFACTOR : Implementing Logic Validation for edge-cases
+Act as an expert Full-Stack Developer. Our vehicle sale test is passing, but we need to perform the "Refactor" step by adding robust business logic validation and edge-case testing for the inventory operation.
+
+Please review and refactor the Vehicle Sale implementation:
+
+1. **Schema Validation (`app/schemas/vehicle.py`):** Update the `VehicleSale` model so that `quantity` is strictly greater than 0 (e.g., using Pydantic's `Field(..., gt=0)`). 
+2. **Business Logic (`app/services/vehicle.py`):** In the `record_sale` method, before subtracting the quantity, check if `vehicle.quantity < sale_data.quantity`. If it is, raise an `HTTPException` with `status_code=400` (Bad Request) and a detail message like "Not enough vehicles in stock".
+3. **Test Suite - Insufficient Stock (`backend/tests/api/test_inventory.py`):** Add a test called `test_record_vehicle_sale_insufficient_stock`. `POST` a vehicle with a quantity of 2. Attempt to `POST` a sale of 5. Assert the response status code is 400 Bad Request.
+4. **Test Suite - Invalid Input:** Add a test called `test_record_vehicle_sale_invalid_quantity`. Attempt to `POST` a sale with a quantity of 0 or a negative number. Assert the response status code is 422 Unprocessable Entity (from Pydantic validation).
+5. Run the tests to ensure everything is green
