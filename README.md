@@ -4,33 +4,30 @@ A full-stack RESTful inventory management application designed to handle vehicle
 
 ## Project Status
 
-| Phase | Description | Status |
+| Phase | Status | Key Features |
 | :--- | :--- | :--- |
-| **Phase 0** | Project Setup & Tooling Configuration | COMPLETED |
-| **Phase 1** | Authentication & Security | COMPLETED |
-| **Phase 2** | Vehicle CRUD | COMPLETED |
+| **Phase 0: Setup** | COMPLETED | Scaffolding, Testing Infrastructure, Database Configuration |
+| **Phase 1: Authentication** | COMPLETED | Registration, Login, JWT Authentication, Password Hashing (bcrypt) |
+| **Phase 2: Vehicle CRUD** | COMPLETED | Full CRUD operations, Pagination, Clean Architecture (Routes -> Services -> Repositories), Edge-case testing |
+| **Phase 3: Inventory Operations** | COMPLETED | Purchase & Restock logic, Stock Validation (no negative stock), Strict TDD approach, Role-Based Access Control (Admin-only deletion and restocking) |
 
-### Implemented Features
-- User Registration with secure password hashing (bcrypt).
-- Configured JSON Web Token (JWT) handling.
-- Implemented Clean Architecture (Routes -> Services -> Repositories/Models).
-- Developed using strict Red-Green-Refactor cycles.
-- Full CRUD operations.
-- Pagination support.
-- Admin-only deletion.
-- Role-Based Access Control (RBAC).
-- Edge-case handling (404, 403).
+### Key Architectural Highlights
+- **Clean Architecture:** Strict separation of concerns (Routes, Services, Repositories, Models).
+- **Test-Driven Development (TDD):** Every feature was implemented using Red-Green-Refactor cycles, ensuring high code quality and test coverage.
+- **Software Craftsmanship:** Focused on clean, readable code with robust edge-case handling (404 Not Found, 403 Forbidden, 422 Unprocessable Entity).
 
 ## API Endpoints
 
-| Endpoint | Method | Access | Description |
-| :--- | :--- | :--- | :--- |
-| `/api/auth/register` | POST | Public | Registers a new user. |
-| `/api/auth/login` | POST | Public | Authenticates user and returns JWT. |
-| `/api/vehicles` | POST | Protected (User) | Creates a new vehicle. |
-| `/api/vehicles` | GET | Protected (User) | Retrieves all vehicles with pagination (`?skip=0&limit=10`). |
-| `/api/vehicles/{id}` | PUT | Protected (User) | Updates vehicle details. |
-| `/api/vehicles/{id}` | DELETE | Protected (Admin) | Deletes a vehicle. |
+| Category | Method | Endpoint | Auth Required | Role | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Auth** | POST | `/api/auth/register` | No | Public | Registers a new user. |
+| **Auth** | POST | `/api/auth/login` | No | Public | Authenticates user and returns JWT. |
+| **Vehicles** | POST | `/api/vehicles` | Yes | User | Creates a new vehicle. |
+| **Vehicles** | GET | `/api/vehicles` | Yes | User | Retrieves all vehicles with pagination (`?skip=0&limit=10`). |
+| **Vehicles** | PUT | `/api/vehicles/{id}` | Yes | User | Updates vehicle details. |
+| **Vehicles** | DELETE | `/api/vehicles/{id}` | Yes | Admin | Deletes a vehicle. |
+| **Inventory** | POST | `/api/vehicles/{id}/purchase` | Yes | User | Decreases stock quantity. Fails if stock is zero. |
+| **Inventory** | POST | `/api/vehicles/{id}/restock` | Yes | Admin | Increases stock quantity. |
 
 ## Tech Stack
 
@@ -100,18 +97,10 @@ pytest --cov=app
 - Gemini (AI Assistant)
 
 ### How they were used:
-- Used AI to scaffold the project structure and testing configuration (Phase 0).
-- Used AI to generate failing test cases for TDD (Phase 1, Phase 2).
-- Used AI to implement the initial logic to pass tests (Green state).
-- Used AI to refactor code into Clean Architecture (Services, Models, Hashing) while maintaining test coverage.
-- Used AI to generate failing TDD tests for all CRUD operations and edge cases.
-- Used AI to implement Role-Based Access Control (RBAC) logic for Admin deletion.
-- Used AI to refactor code into Service and Repository layers to ensure separation of concerns.
-- Used AI to debug database isolation issues during testing.
+- Scaffolded project and testing infrastructure (Phase 0).
+- Generated TDD test cases for Auth and implemented JWT/Hashing logic (Phase 1).
+- Implemented CRUD, Pagination, and complex RBAC logic for Admin deletion (Phase 2).
+- Designed business logic for Inventory Operations (Purchase/Restock) and stock validation (Phase 3).
 
 ### Reflection:
-- AI accelerated the TDD cycle and helped implement complex RBAC logic, allowing me to focus on architectural integrity and code cleanliness.
-- AI tools help me generate the basic idea and structure of the project along with brainstorming the ideas and phases I need to divide the project into.
-- It also helped in understanding and implementing some concepts that I was not familiar with.
-- I used meta-prompting and a few prompt engineering techniques to get the best out of the AI tools.
-- Overall, AI tools helped me to complete the project faster and more efficiently.
+- AI was critical in accelerating the TDD cycle, allowing me to focus on architectural integrity, security implementation (JWT/RBAC), and robust business logic validation.
