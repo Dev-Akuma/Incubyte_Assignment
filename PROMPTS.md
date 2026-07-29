@@ -116,3 +116,16 @@ Please refactor `backend/tests/api/test_auth.py` to be cleaner and more scalable
 2. Create a fixture in `conftest.py` for a `valid_user_payload` so we don't have to hardcode the username, email, and password in every test.
 3. Update `test_auth.py` to inject these fixtures into `test_register_user_success` rather than hardcoding them.
 4. Ensure the test still passes.
+
+# Implementing Login
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are continuing Phase 1 (Authentication) for our Car Dealership Inventory System.
+
+CRITICAL CONSTRAINT: Do NOT write any implementation code for the login route, services, or JWT generation. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
+
+Please do the following:
+1. Open `backend/tests/api/test_auth.py`.
+2. Add a new test case called `test_login_user_success`.
+3. In this test, first register a user (using the test client or a fixture) so that a user exists in the test database.
+4. Then, make a `POST` request to `/api/auth/login`. Since FastAPI typically uses OAuth2 with password flow, send the credentials (username and password) as form data (`data=...`), NOT JSON.
+5. Assert that the response status code is 200 OK.
+6. Assert that the JSON response contains an `access_token` and `token_type` == "bearer".
