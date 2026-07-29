@@ -42,3 +42,11 @@ def client(db_session):
     with TestClient(app) as test_client:
         yield test_client
     app.dependency_overrides.clear()
+
+@pytest.fixture(scope="function")
+def valid_user_payload():
+    return {
+        "username": "testuser",
+        "email": "testuser@example.com",
+        "password": "securepassword123"
+    }

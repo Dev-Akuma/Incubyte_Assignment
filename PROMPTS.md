@@ -106,4 +106,13 @@ Please update `conftest.py` to fix this:
 3. Call `Base.metadata.drop_all(bind=engine)` after the yield to clean up.
 4. Ensure the models (like `User`) are imported before `create_all` so SQLAlchemy knows about them.
 
-Provide the updated `conftest.py` code. Once the test passes and returns 201, I will stage and commit the changes strictly using this message:
+Provide the updated `conftest.py` code. Once the test passes and returns 201.
+
+# REFACTOR :
+Act as an expert Full-Stack Developer. Our registration test is passing, and our application code is already separated into services and repositories. We are now in the "Refactor" phase for our test code.
+
+Please refactor `backend/tests/api/test_auth.py` to be cleaner and more scalable:
+1. Move the `TestClient` initialization into a reusable pytest fixture in `conftest.py` (if it isn't there already), ensuring it uses the isolated test database override.
+2. Create a fixture in `conftest.py` for a `valid_user_payload` so we don't have to hardcode the username, email, and password in every test.
+3. Update `test_auth.py` to inject these fixtures into `test_register_user_success` rather than hardcoding them.
+4. Ensure the test still passes.
