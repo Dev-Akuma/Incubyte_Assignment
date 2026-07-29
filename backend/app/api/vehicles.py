@@ -21,10 +21,12 @@ def create_new_vehicle(
 
 @router.get("", response_model=list[VehicleResponse])
 def get_all_vehicles(
+    skip: int = 0,
+    limit: int = 100,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
     """
     Retrieve all vehicles.
     """
-    return vehicle_service.get_vehicles(db=db)
+    return vehicle_service.get_vehicles(db=db, skip=skip, limit=limit)

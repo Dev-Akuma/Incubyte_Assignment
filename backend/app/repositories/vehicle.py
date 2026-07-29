@@ -9,5 +9,5 @@ def create_vehicle(db: Session, vehicle: VehicleCreate) -> Vehicle:
     db.refresh(db_vehicle)
     return db_vehicle
 
-def get_all_vehicles(db: Session) -> list[Vehicle]:
-    return db.query(Vehicle).all()
+def get_all_vehicles(db: Session, skip: int = 0, limit: int = 100) -> list[Vehicle]:
+    return db.query(Vehicle).offset(skip).limit(limit).all()

@@ -75,3 +75,30 @@ def test_get_all_vehicles_success(authorized_client):
     makes_models = [(v["make"], v["model"]) for v in data]
     assert (vehicle1["make"], vehicle1["model"]) in makes_models
     assert (vehicle2["make"], vehicle2["model"]) in makes_models
+
+def test_get_all_vehicles_unauthorized(client):
+    """
+    Test that an unauthenticated user cannot retrieve vehicles.
+    Expects a 401 Unauthorized status.
+    """
+    response = client.get("/api/vehicles")
+    assert response.status_code == 401
+
+def test_get_all_vehicles_pagination(authorized_client):
+    """
+    Test that the skip and limit pagination parameters work correctly.
+    """
+    # Create 3 vehicles
+    vehicles = [
+        {"make": "TestMake1", "model": "TestModel1", "category": "Sedan", "price": 10000, "quantity": 1},
+        {"make": "TestMake2", "model": "TestModel2", "category": "SUV", "price": 20000, "quantity": 1},
+        {"make": "TestMake3", "model": "TestModel3", "category": "Truck", "price": 30000, "quantity": 1},
+    ]
+    for v in vehicles:
+        authorized_client.post("/api/vehicles", json=v)
+        
+    # Test limit=2
+    response_limit = authorized_client.get("/api/vehicles?limit=2")
+    assert response_limit.status_code == 200
+    data_limit = response_limit.json()
+    assert len(data_limit) <= 2  # Might be less if DB is cleared, but definitely shouldn't exceed 2

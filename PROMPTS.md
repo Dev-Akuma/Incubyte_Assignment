@@ -274,4 +274,13 @@ Please implement the following step-by-step:
    - Call the service layer to fetch the vehicles.
    - Return the list of vehicles.
 
-   
+# REFACTOR PHASE : Inventory List
+Act as an expert Full-Stack Developer. Our vehicle list test is passing, but we need to perform the "Refactor" step to ensure our API is scalable and secure.
+
+Please review and refactor the Vehicle list implementation:
+
+1. **Pagination (Repository & Service):** Update `get_all_vehicles` in `app/repositories/vehicle.py` and `app/services/vehicle.py` to accept `skip: int = 0` and `limit: int = 100` parameters, and apply them to the SQLAlchemy query.
+2. **Query Parameters (Router):** Update the `GET /api/vehicles` route in `app/api/vehicles.py` to accept `skip` and `limit` as query parameters, passing them down to the service layer.
+3. **Test Suite - Unauthorized (`backend/tests/api/test_vehicles.py`):** Add a test case called `test_get_all_vehicles_unauthorized` that uses the unauthenticated `client` to make a GET request to `/api/vehicles`. Assert it returns a 401 Unauthorized status code.
+4. **Test Suite - Pagination:** Ensure the existing `test_get_all_vehicles_success` still passes. Optionally, add a small test to verify the `limit` query parameter works (e.g., limit=1 returns only 1 vehicle).
+5. Run the tests to ensure everything remains green.
