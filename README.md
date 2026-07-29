@@ -2,9 +2,22 @@
 
 A full-stack RESTful inventory management application designed to handle vehicle inventory with Role-Based Access Control (RBAC).
 
+## Project Status
+
+| Phase | Description | Status |
+| :--- | :--- | :--- |
+| **Phase 0** | Project Setup & Tooling Configuration | COMPLETED |
+| **Phase 1** | Authentication & Security | COMPLETED |
+
+### Implemented Features
+- **User Registration with secure password hashing (bcrypt)**
+- Configured JSON Web Token (JWT) handling.
+- Implemented Clean Architecture (Routes -> Services -> Repositories/Models).
+- Developed using strict Red-Green-Refactor cycles.
+
 ## Tech Stack
 
-- **Backend:** FastAPI, SQLAlchemy, SQLite, Pytest.
+- **Backend:** FastAPI, SQLAlchemy, SQLite, Pytest, bcrypt, JWT.
 - **Frontend:** React, Vite, Tailwind CSS, Axios.
 
 ## Local Setup Instructions
@@ -52,7 +65,13 @@ A full-stack RESTful inventory management application designed to handle vehicle
 
 ## Testing
 
-To run backend tests using `pytest` and `pytest-cov`, ensure you are in the `backend` directory with your virtual environment activated, then run:
+To run the backend test suite, ensure you are in the `backend` directory with your virtual environment activated, then run:
+
+```bash
+pytest
+```
+
+To run the tests and generate a coverage report:
 
 ```bash
 pytest --cov=app
@@ -61,14 +80,17 @@ pytest --cov=app
 ## My AI Usage
 
 ### Tools Used:
-- Gemini 3.1 Pro with VSCode Extension.
+- Gemini (AI Assistant) with VSCode Extension.
 
 ### How they were used:
-AI was used to establish the initial project skeleton, configure testing, and scaffold the README.
+- Used AI to scaffold the project structure and testing configuration (Phase 0).
+- Used AI to generate failing test cases for TDD (Phase 1).
+- Used AI to implement the initial logic to pass tests (Green state).
+- Used AI to refactor code into Clean Architecture (Services, Models, Hashing) while maintaining test coverage.
 
 ### Reflection:
+- AI significantly accelerated the boilerplate setup and TDD cycle, allowing me to focus on architectural decisions and security implementation (bcrypt).
 - AI tools help me generate the basic idea and structure of the project along with brainstorming the ideas and phases I need to divide the project into.
 - It also helped in understanding and implementing some concepts that I was not familiar with.
 - I used meta-prompting and a few prompt engineering techniques to get the best out of the AI tools.
-- I also used the AI tools to generate some test cases for the project.
 - Overall, AI tools helped me to complete the project faster and more efficiently.

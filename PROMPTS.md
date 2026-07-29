@@ -157,3 +157,49 @@ Please review and refactor the login implementation:
 2. **Error Handling (`app/api/auth.py`):** If `authenticate_user` returns `None` or `False` (meaning invalid username or password), ensure the router raises an `HTTPException` with `status_code=status.HTTP_401_UNAUTHORIZED`, a detail message like "Incorrect username or password", and the header `{"WWW-Authenticate": "Bearer"}`.
 3. **Test Suite (`backend/tests/api/test_auth.py`):** Add a quick test case called `test_login_user_invalid_credentials` to verify that passing a wrong password returns a 401 status code. This solidifies our refactor.
 4. Run the tests to ensure everything remains green.
+
+# README.md updating progress on PHASE I completion
+ACT as a Technical Writer and Senior Developer.
+CONTEXT: We have just completed Phase 1 (Authentication) of the Incubyte Car Dealership Kata.
+CURRENT STATE: 
+- Phase 0 (Setup) is complete.
+- Phase 1 (Authentication) is complete.
+- Implemented: User Registration endpoint (POST /api/auth/register) with TDD (Red-Green-Refactor).
+- Tech: FastAPI, SQLAlchemy, Alembic, Pytest, bcrypt, JWT (setup ready).
+- Architecture: Clean Architecture (Routes -> Services -> Repositories/Models).
+- Testing: 100% test coverage for the registration flow (user creation, password hashing, 201 status).
+
+GOAL: Update the root README.md to reflect this progress.
+
+TASKS:
+1. **Update "Project Status" Section**:
+   - Clearly state: "Phase 1: Authentication - COMPLETED".
+   - List implemented features: "User Registration with secure password hashing (bcrypt)".
+   - Mention the TDD approach used: "Developed using strict Red-Green-Refactor cycles."
+
+2. **Update "How to Run" Section**:
+   - Ensure instructions cover both Backend (setup, migrations) and Frontend (if applicable, though focus on backend now).
+   - Add the command to run tests: `pytest`.
+
+3. **Update "My AI Usage" Section (MANDATORY)**:
+   - Create/Update a dedicated section titled "My AI Usage".
+   - List tools used: "Gemini (AI Assistant)".
+   - Describe usage: 
+     - "Used AI to scaffold the project structure and testing configuration (Phase 0)."
+     - "Used AI to generate failing test cases for TDD (Phase 1)."
+     - "Used AI to implement the initial logic to pass tests (Green state)."
+     - "Used AI to refactor code into Clean Architecture (Services, Models, Hashing) while maintaining test coverage."
+   - Add a reflection: "AI significantly accelerated the boilerplate setup and TDD cycle, allowing me to focus on architectural decisions and security implementation (bcrypt)."
+
+4. **Formatting**:
+   - Use Markdown tables for the "Progress" section.
+   - Ensure the "My AI Usage" section is prominent and follows Incubyte's transparency rules.
+   - Keep the tone professional and technical.
+
+CONSTRAINTS:
+- DO NOT invent features not yet implemented (e.g., do not mention Login, Purchase, or Admin panels yet).
+- DO NOT remove existing Phase 0 information, just append/update.
+- Ensure the "Co-authored-by" context is reflected in the commit history (though not in the README text itself).
+
+OUTPUT:
+- Provide the full updated content of the README.md file.
