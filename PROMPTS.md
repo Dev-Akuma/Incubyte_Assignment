@@ -343,3 +343,19 @@ Please do the following:
    - Search by make: `?make=Toyota`. Assert response count is 1 and the make matches.
    - Search by category: `?category=Sedan`. Assert response count is 1 and the category matches.
    - Search by price range: `?min_price=20000&max_price=40000`. Assert response count is 2 (the Toyota and the Ford).
+
+# GREEN : Implementing Searching and Filtering
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Repositories (`app/repositories/vehicle.py`):** Add a method `search_vehicles` that accepts optional parameters: `make`, `model`, `category`, `min_price`, and `max_price`. 
+   - Start with a base query: `query = db.query(models.Vehicle)`
+   - Dynamically add `.filter()` clauses only if the parameter is provided (e.g., `if make: query = query.filter(models.Vehicle.make.ilike(f"%{make}%"))`).
+   - Return the executed query.
+2. **Services (`app/services/vehicle.py`):** Add a method `search_vehicles` that accepts the database session and the optional parameters, passing them down to the repository.
+3. **API Router (`app/api/vehicles.py`):** Implement the `GET /api/vehicles/search` endpoint. 
+   - **IMPORTANT:** Place this route *before* any dynamic ID routes (like `/{id}`) in the file to prevent route collision.
+   - Depend on `get_current_user` to ensure the route is protected.
+   - Use `typing.Optional` for the query parameters: `make`, `model`, `category`, `min_price`, `max_price`.
+   - Call the service layer and return the results as `list[VehicleResponse]`.
