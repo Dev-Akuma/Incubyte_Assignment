@@ -51,3 +51,14 @@ Please include the following sections in the README:
    - Add a subsection "Tools Used:" listing the AI assistant.
    - Add a subsection "How they were used:" noting that AI was used to establish the initial project skeleton, configure testing, and scaffold the README.
    - Add a subsection "Reflection:" leaving a placeholder for me to write my thoughts on how AI accelerated the boilerplate setup.
+
+# PHASE - 1 Authentication
+
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are starting Phase 1 (Authentication) for our Car Dealership Inventory System.
+
+CRITICAL CONSTRAINT: Do NOT write any implementation code (no routes, no controllers, no services). We are strictly following the Red-Green-Refactor cycle. Your only task is to write a FAILING test.
+
+Please do the following:
+1. Create a test file `backend/tests/api/test_auth.py`.
+2. Write a Pytest test case for `POST /api/auth/register` that checks if a new user can successfully register with valid credentials (e.g., username, password, email). The test should expect a 201 status code and a response containing the user's details (excluding the password) or a success message.
+3. Ensure the test imports the necessary testing tools (like `TestClient` from FastAPI), even if the FastAPI app isn't fully configured to handle it yet.
