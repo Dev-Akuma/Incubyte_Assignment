@@ -29,3 +29,22 @@ def test_login_user_success(client, valid_user_payload):
     data = response.json()
     assert "access_token" in data
     assert data["token_type"] == "bearer"
+
+def test_login_user_invalid_credentials(client, valid_user_payload):
+    """
+    Test that logging in with an incorrect password returns a 401 Unauthorized.
+    """
+    # Register the user first
+    client.post("/api/auth/register", json=valid_user_payload)
+    
+    # Attempt to login with wrong password
+    login_data = {
+        "username": valid_user_payload["username"],
+        "password": "wrongpassword123!"
+    }
+    response = client.post("/api/auth/login", data=login_data)
+    
+    assert response.status_code == 401
+    data = response.json()
+    assert data["detail"] == "Incorrect username or password"
+    assert response.headers.get("WWW-Authenticate") == "Bearer"

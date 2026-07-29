@@ -147,3 +147,13 @@ Please implement the following step-by-step:
 6. **API Router (`app/api/auth.py`):** Implement the `POST /api/auth/login` endpoint. It must accept FastAPI's `OAuth2PasswordRequestForm` as a dependency, call the authentication service, generate the JWT, and return the `Token` schema.
 
 Ensure the tests pass after adding this implementation.
+
+# REFACTOR : Test Login
+Act as an expert Full-Stack Developer. Our login test is passing, but we need to perform the "Refactor" step to ensure our authentication is secure and follows HTTP standards.
+
+Please review and refactor the login implementation:
+
+1. **Configuration (`app/core/config.py`):** Ensure the `SECRET_KEY` is not hardcoded as a raw string. It should be loaded from environment variables using Pydantic's `BaseSettings` (with a secure fallback for local development).
+2. **Error Handling (`app/api/auth.py`):** If `authenticate_user` returns `None` or `False` (meaning invalid username or password), ensure the router raises an `HTTPException` with `status_code=status.HTTP_401_UNAUTHORIZED`, a detail message like "Incorrect username or password", and the header `{"WWW-Authenticate": "Bearer"}`.
+3. **Test Suite (`backend/tests/api/test_auth.py`):** Add a quick test case called `test_login_user_invalid_credentials` to verify that passing a wrong password returns a 401 status code. This solidifies our refactor.
+4. Run the tests to ensure everything remains green.
