@@ -156,3 +156,27 @@ def test_search_vehicles_not_found(authorized_client):
     data = response.json()
     assert isinstance(data, list)
     assert len(data) == 0
+
+def test_update_vehicle_success(authorized_client):
+    """
+    Test that an authorized user can update an existing vehicle.
+    """
+    # Create a vehicle first
+    create_response = authorized_client.post("/api/vehicles", json={
+        "make": "Chevrolet", "model": "Malibu", "category": "Sedan", "price": 20000.0, "quantity": 5
+    })
+    assert create_response.status_code == 201
+    vehicle_id = create_response.json()["id"]
+
+    # Update the vehicle
+    update_payload = {
+        "make": "Chevrolet", "model": "Malibu", "category": "Sedan", 
+        "price": 22000.0, "quantity": 10
+    }
+    update_response = authorized_client.put(f"/api/vehicles/{vehicle_id}", json=update_payload)
+    
+    assert update_response.status_code == 200
+    updated_data = update_response.json()
+    assert updated_data["price"] == 22000.0
+    assert updated_data["quantity"] == 10
+    assert updated_data["id"] == vehicle_id

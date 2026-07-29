@@ -369,3 +369,16 @@ Please review and refactor the Vehicle search implementation:
 2. **Test Suite - Unauthorized (`backend/tests/api/test_vehicles.py`):** Add a test case called `test_search_vehicles_unauthorized` that uses the unauthenticated `client` to make a GET request to `/api/vehicles/search?make=Toyota`. Assert it returns a 401 Unauthorized status code.
 3. **Test Suite - Empty Results:** Add a test case called `test_search_vehicles_not_found` using the `authorized_client`. Search for a vehicle that definitely does not exist in the database (e.g., `?make=NonExistentBrand`). Assert that the status code is 200 OK and the response body is an empty list `[]`.
 4. Run the tests to ensure everything remains green.
+
+# RED : Update and Delete for RBAC 
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are wrapping up the standard CRUD operations in Phase 2 for our Car Dealership Inventory System.
+
+CRITICAL CONSTRAINT: Do NOT write any implementation code for the update route, service, or repository. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
+
+Please do the following:
+1. Open `backend/tests/api/test_vehicles.py`.
+2. Add a new test case called `test_update_vehicle_success`.
+3. Inside the test, first use the `authorized_client` to `POST` a new vehicle to `/api/vehicles` and extract its `id` from the response.
+4. Make a `PUT` request using the `authorized_client` to `/api/vehicles/{id}` with a JSON payload containing updated details (e.g., changing the `price` and `quantity`).
+5. Assert that the response status code is 200 OK.
+6. Assert that the response JSON matches the updated fields (e.g., the new price and quantity are returned).
