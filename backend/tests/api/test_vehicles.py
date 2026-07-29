@@ -180,3 +180,19 @@ def test_update_vehicle_success(authorized_client):
     assert updated_data["price"] == 22000.0
     assert updated_data["quantity"] == 10
     assert updated_data["id"] == vehicle_id
+
+def test_update_vehicle_not_found(authorized_client):
+    """
+    Test that updating a non-existent vehicle returns 404 Not Found.
+    """
+    update_payload = {"price": 1000.0}
+    response = authorized_client.put("/api/vehicles/9999", json=update_payload)
+    assert response.status_code == 404
+
+def test_update_vehicle_unauthorized(client):
+    """
+    Test that an unauthenticated user cannot update a vehicle.
+    """
+    update_payload = {"price": 1000.0}
+    response = client.put("/api/vehicles/1", json=update_payload)
+    assert response.status_code == 401

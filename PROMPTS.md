@@ -52,7 +52,7 @@ Please include the following sections in the README:
    - Add a subsection "How they were used:" noting that AI was used to establish the initial project skeleton, configure testing, and scaffold the README.
    - Add a subsection "Reflection:" leaving a placeholder for me to write my thoughts on how AI accelerated the boilerplate setup.
 
-# PHASE - 1 Authentication
+# PHASE - I Authentication
 
 Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are starting Phase 1 (Authentication) for our Car Dealership Inventory System.
 
@@ -63,7 +63,7 @@ Please do the following:
 2. Write a Pytest test case for `POST /api/auth/register` that checks if a new user can successfully register with valid credentials (e.g., username, password, email). The test should expect a 201 status code and a response containing the user's details (excluding the password) or a success message.
 3. Ensure the test imports the necessary testing tools (like `TestClient` from FastAPI), even if the FastAPI app isn't fully configured to handle it yet.
 
-# RED -> GREEN : Implement and fix the failing test     
+## RED -> GREEN : Implement and fix the failing test     
 Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `POST /api/auth/register` endpoint in our FastAPI backend. 
 
 Your task is to write the minimum implementation code necessary to make this test pass (Green state). Do NOT implement the login endpoint or any other features yet.
@@ -76,7 +76,7 @@ Please implement the following step-by-step:
 4. **API Router (`app/api/auth.py`):** Create an APIRouter and implement the `POST /api/auth/register` endpoint. It should accept `UserCreate`, hash the password, save the user to the database, and return a 201 status code with the `UserResponse` model.
 5. **Main App (`app/main.py`):** Initialize the FastAPI app and include the auth router so the test client can actually reach the endpoint.
 
-# RED -> GREEN : Fix Test Isolation
+## RED -> GREEN : Fix Test Isolation
 Act as an expert Full-Stack Developer. I ran my pytest suite and the `test_register_user_success` test failed with:
 
 >       assert response.status_code == 201
@@ -93,7 +93,7 @@ Please fix our test isolation by doing the following:
 
 Provide the code for `conftest.py` and any necessary updates to `tests/api/test_auth.py`.
 
-# RED -> GREEN Pt.2 
+## RED -> GREEN Pt.2 
 Act as an expert Full-Stack Developer. I ran pytest and got the following error:
 
 E       sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: users
@@ -108,7 +108,7 @@ Please update `conftest.py` to fix this:
 
 Provide the updated `conftest.py` code. Once the test passes and returns 201.
 
-# REFACTOR :
+## REFACTOR :
 Act as an expert Full-Stack Developer. Our registration test is passing, and our application code is already separated into services and repositories. We are now in the "Refactor" phase for our test code.
 
 Please refactor `backend/tests/api/test_auth.py` to be cleaner and more scalable:
@@ -117,7 +117,7 @@ Please refactor `backend/tests/api/test_auth.py` to be cleaner and more scalable
 3. Update `test_auth.py` to inject these fixtures into `test_register_user_success` rather than hardcoding them.
 4. Ensure the test still passes.
 
-# RED : Implementing Login
+# Phase II : Implementing Login (RED)
 Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are continuing Phase 1 (Authentication) for our Car Dealership Inventory System.
 
 CRITICAL CONSTRAINT: Do NOT write any implementation code for the login route, services, or JWT generation. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
@@ -130,7 +130,7 @@ Please do the following:
 5. Assert that the response status code is 200 OK.
 6. Assert that the JSON response contains an `access_token` and `token_type` == "bearer".
 
-# GREEN : Implementing Login
+## GREEN : Implementing Login
 Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `POST /api/auth/login` endpoint.
 
 Your task is to write the minimum implementation code necessary to make this test pass (Green state). We need to implement JWT generation and password verification.
@@ -148,7 +148,7 @@ Please implement the following step-by-step:
 
 Ensure the tests pass after adding this implementation.
 
-# REFACTOR : Test Login
+## REFACTOR : Test Login
 Act as an expert Full-Stack Developer. Our login test is passing, but we need to perform the "Refactor" step to ensure our authentication is secure and follows HTTP standards.
 
 Please review and refactor the login implementation:
@@ -158,7 +158,7 @@ Please review and refactor the login implementation:
 3. **Test Suite (`backend/tests/api/test_auth.py`):** Add a quick test case called `test_login_user_invalid_credentials` to verify that passing a wrong password returns a 401 status code. This solidifies our refactor.
 4. Run the tests to ensure everything remains green.
 
-# README.md updating progress on PHASE I completion
+## README.md updating progress on PHASE I completion
 ACT as a Technical Writer and Senior Developer.
 CONTEXT: We have just completed Phase 1 (Authentication) of the Incubyte Car Dealership Kata.
 CURRENT STATE: 
@@ -204,7 +204,7 @@ CONSTRAINTS:
 OUTPUT:
 - Provide the full updated content of the README.md file.
 
-# PHASE II : Vehicle CRUD
+## RED Vehicle CRUD
 Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are starting Phase 2 (Vehicle CRUD) for our Car Dealership Inventory System.
 
 CRITICAL CONSTRAINT: Do NOT write any implementation code for the vehicles routes, models, or schemas. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
@@ -218,7 +218,7 @@ Please do the following step-by-step:
    - Assert that the response status code is 201 Created.
    - Assert that the JSON response contains an `id` and matches the submitted payload.
 
-# GREEN : Implementing Vehicle Creation 
+## GREEN : Implementing Vehicle Creation 
 Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `POST /api/vehicles` endpoint.
 
 Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
@@ -236,7 +236,7 @@ Please implement the following step-by-step:
    - Return a 201 Created status code with the `VehicleResponse`.
 6. **Main App (`app/main.py`):** Include the new `vehicles` router in the FastAPI application.
 
-# REFACTOR : Vehicle Creation
+## REFACTOR : Vehicle Creation
 Act as an expert Full-Stack Developer. Our vehicle creation test is passing, but we need to perform the "Refactor" step to ensure our architecture remains clean and our protected routes are fully tested.
 
 Please review and refactor the Vehicle creation implementation:
@@ -330,7 +330,7 @@ CONSTRAINTS:
 OUTPUT:
 - Provide the full updated content of the README.md file.
 
-# PHASE 4 - Searching and Filtering
+# PHASE - IV Searching and Filtering
 Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are continuing Phase 2 (Vehicle CRUD) for our Car Dealership Inventory System.
 
 CRITICAL CONSTRAINT: Do NOT write any implementation code for the search route, service, or repository. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
@@ -344,7 +344,7 @@ Please do the following:
    - Search by category: `?category=Sedan`. Assert response count is 1 and the category matches.
    - Search by price range: `?min_price=20000&max_price=40000`. Assert response count is 2 (the Toyota and the Ford).
 
-# GREEN : Implementing Searching and Filtering
+## GREEN : Implementing Searching and Filtering
 Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
 
 Please implement the following step-by-step:
@@ -360,7 +360,7 @@ Please implement the following step-by-step:
    - Use `typing.Optional` for the query parameters: `make`, `model`, `category`, `min_price`, `max_price`.
    - Call the service layer and return the results as `list[VehicleResponse]`.
 
-# REFACTOR : Adding Pagination for Empty Results or full queries
+## REFACTOR : Adding Pagination for Empty Results or full queries
 Act as an expert Full-Stack Developer. Our vehicle search test is passing, but we need to perform the "Refactor" step to ensure the search API is scalable, secure, and handles edge cases.
 
 Please review and refactor the Vehicle search implementation:
@@ -370,7 +370,7 @@ Please review and refactor the Vehicle search implementation:
 3. **Test Suite - Empty Results:** Add a test case called `test_search_vehicles_not_found` using the `authorized_client`. Search for a vehicle that definitely does not exist in the database (e.g., `?make=NonExistentBrand`). Assert that the status code is 200 OK and the response body is an empty list `[]`.
 4. Run the tests to ensure everything remains green.
 
-# RED : Update and Delete for RBAC 
+## RED : Update and Delete for RBAC 
 Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are wrapping up the standard CRUD operations in Phase 2 for our Car Dealership Inventory System.
 
 CRITICAL CONSTRAINT: Do NOT write any implementation code for the update route, service, or repository. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
@@ -383,7 +383,7 @@ Please do the following:
 5. Assert that the response status code is 200 OK.
 6. Assert that the response JSON matches the updated fields (e.g., the new price and quantity are returned).
 
-# GREEN : Update and Delete for RBAC 
+## GREEN : Update and Delete for RBAC 
 Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `PUT /api/vehicles/{id}` endpoint.
 
 Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
@@ -399,3 +399,12 @@ Please implement the following step-by-step:
    - Depend on `get_current_user` to ensure it is protected.
    - Accept the `id` as a path parameter and `VehicleUpdate` as the body.
    - Call the service layer and return the updated vehicle using `response_model=VehicleResponse`.
+
+## REFACTOR : Update and Delete for RBAC refactoring for edge-case coverage
+Act as an expert Full-Stack Developer. Our vehicle update test is passing, but we need to perform the "Refactor" step by adding robust edge-case testing.
+
+Please do the following in `backend/tests/api/test_vehicles.py`:
+
+1. **Test Suite - Not Found:** Add a test case called `test_update_vehicle_not_found`. Use the `authorized_client` to send a `PUT` request to `/api/vehicles/9999` (an ID that does not exist) with valid update payload. Assert that the response status code is 404 Not Found.
+2. **Test Suite - Unauthorized:** Add a test case called `test_update_vehicle_unauthorized`. Use the unauthenticated `client` to send a `PUT` request to `/api/vehicles/1`. Assert that the response status code is 401 Unauthorized.
+3. Run the tests. If the 404 test fails because our service layer isn't properly raising the `HTTPException`, fix the `update_vehicle` method in `app/services/vehicle.py` to ensure it raises a 404 when the repository returns `None`.
