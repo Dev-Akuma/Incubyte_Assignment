@@ -1,10 +1,4 @@
-import pytest
-from fastapi.testclient import TestClient
-from app.main import app 
-
-client = TestClient(app)
-
-def test_register_user_success():
+def test_register_user_success(client):
     """
     Test that a new user can successfully register with valid credentials.
     Expects a 201 Created status and the returned user object to not include the password.
