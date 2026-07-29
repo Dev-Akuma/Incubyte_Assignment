@@ -528,3 +528,14 @@ Please implement the following step-by-step:
    - Depend on `get_current_user` to ensure the route is protected.
    - Accept the `id` as a path parameter and `VehicleRestock` as the request body.
    - Call the `restock_vehicle` service method and return the result using `response_model=VehicleResponse`.
+
+## REFACTOR : Review and Additional edge-case tests
+Act as an expert Full-Stack Developer. Our vehicle restock test is passing, but we need to perform the "Refactor" step by adding robust input validation and edge-case testing.
+
+Please review and refactor the Vehicle Restock implementation:
+
+1. **Schema Validation (`app/schemas/vehicle.py`):** Update the `VehicleRestock` model so that `quantity` is strictly greater than 0 (e.g., using Pydantic's `Field(..., gt=0)`). 
+2. **Test Suite - Invalid Input (`backend/tests/api/test_inventory.py`):** Add a test called `test_restock_vehicle_invalid_quantity`. Attempt to `POST` a restock with a quantity of 0 or a negative number. Assert the response status code is 422 Unprocessable Entity.
+3. **Test Suite - Not Found:** Add a test called `test_restock_vehicle_not_found`. Use the `authorized_client` to send a restock request to an ID that does not exist (e.g., 9999). Assert that the response status code is 404 Not Found.
+4. **Test Suite - Unauthorized:** Add a test called `test_restock_vehicle_unauthorized`. Use the unauthenticated `client` to send a restock request to an existing vehicle. Assert that the response status code is 401 Unauthorized.
+5. Run the tests to ensure everything is green.

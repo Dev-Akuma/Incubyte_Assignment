@@ -66,3 +66,31 @@ def test_restock_vehicle_success(authorized_client):
     # Assert that the new quantity is exactly 8 (5 + 3 = 8)
     updated_vehicle = restock_response.json()
     assert updated_vehicle["quantity"] == 8
+
+def test_restock_vehicle_invalid_quantity(authorized_client):
+    """
+    Test recording a restock fails if quantity is 0 or negative.
+    """
+    create_response = authorized_client.post("/api/vehicles", json={
+        "make": "Ford", "model": "Mustang", "category": "Coupe", "price": 30000.0, "quantity": 5
+    })
+    vehicle_id = create_response.json()["id"]
+
+    restock_response = authorized_client.post(f"/api/vehicles/{vehicle_id}/restock", json={
+        "quantity": 0
+    })
+    assert restock_response.status_code == 422
+
+def test_restock_vehicle_not_found(authorized_client):
+    """
+    Test that restocking a non-existent vehicle returns 404 Not Found.
+    """
+    response = authorized_client.post("/api/vehicles/9999/restock", json={"quantity": 3})
+    assert response.status_code == 404
+
+def test_restock_vehicle_unauthorized(client):
+    """
+    Test that an unauthenticated user cannot restock a vehicle.
+    """
+    response = client.post("/api/vehicles/1/restock", json={"quantity": 3})
+    assert response.status_code == 401
