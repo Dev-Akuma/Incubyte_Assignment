@@ -235,3 +235,13 @@ Please implement the following step-by-step:
    - Save the vehicle using the repository.
    - Return a 201 Created status code with the `VehicleResponse`.
 6. **Main App (`app/main.py`):** Include the new `vehicles` router in the FastAPI application.
+
+# REFACTOR : Vehicle Creation
+Act as an expert Full-Stack Developer. Our vehicle creation test is passing, but we need to perform the "Refactor" step to ensure our architecture remains clean and our protected routes are fully tested.
+
+Please review and refactor the Vehicle creation implementation:
+
+1. **Architecture Consistency (`app/services/vehicle.py`):** Create a service layer for vehicles. Move the database insertion logic call out of the router (`app/api/vehicles.py`). The router should call `service.create_vehicle`, which in turn calls the repository.
+2. **Validation (`app/schemas/vehicle.py`):** Update the `VehicleCreate` Pydantic model to enforce business rules using `Field`. For example, `price` must be greater than 0, and `quantity` must be greater than or equal to 0. 
+3. **Test Suite (`backend/tests/api/test_vehicles.py`):** Add a test case called `test_create_vehicle_unauthorized`. This test should use the standard, unauthenticated `client` (not the `authorized_client` fixture) to attempt to POST to `/api/vehicles`. Assert that it returns a 401 Unauthorized status code.
+4. Run the tests to ensure everything is green.

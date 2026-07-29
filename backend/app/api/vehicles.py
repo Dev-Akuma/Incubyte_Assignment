@@ -4,7 +4,7 @@ from app.schemas.vehicle import VehicleCreate, VehicleResponse
 from app.core.database import get_db
 from app.api.deps import get_current_user
 from app.models.user import User
-from app.repositories.vehicle import create_vehicle
+from app.services import vehicle as vehicle_service
 
 router = APIRouter(prefix="/api/vehicles", tags=["vehicles"])
 
@@ -17,4 +17,4 @@ def create_new_vehicle(
     """
     Create new vehicle.
     """
-    return create_vehicle(db=db, vehicle=vehicle_in)
+    return vehicle_service.create_vehicle(db=db, vehicle=vehicle_in)

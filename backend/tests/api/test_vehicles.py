@@ -21,3 +21,20 @@ def test_create_vehicle_success(authorized_client):
     assert data["category"] == payload["category"]
     assert data["price"] == payload["price"]
     assert data["quantity"] == payload["quantity"]
+
+def test_create_vehicle_unauthorized(client):
+    """
+    Test that an unauthenticated user cannot create a vehicle.
+    Expects a 401 Unauthorized status.
+    """
+    payload = {
+        "make": "Honda",
+        "model": "Civic",
+        "category": "Sedan",
+        "price": 22000.0,
+        "quantity": 2
+    }
+    
+    response = client.post("/api/vehicles", json=payload)
+    
+    assert response.status_code == 401
