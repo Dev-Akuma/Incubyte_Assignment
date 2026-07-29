@@ -359,3 +359,13 @@ Please implement the following step-by-step:
    - Depend on `get_current_user` to ensure the route is protected.
    - Use `typing.Optional` for the query parameters: `make`, `model`, `category`, `min_price`, `max_price`.
    - Call the service layer and return the results as `list[VehicleResponse]`.
+
+# REFACTOR : Adding Pagination for Empty Results or full queries
+Act as an expert Full-Stack Developer. Our vehicle search test is passing, but we need to perform the "Refactor" step to ensure the search API is scalable, secure, and handles edge cases.
+
+Please review and refactor the Vehicle search implementation:
+
+1. **Pagination (All Layers):** Update the `search_vehicles` method in the repository, service, and router to accept `skip: int = 0` and `limit: int = 100`. Apply these to the SQLAlchemy query just like we did for the list endpoint.
+2. **Test Suite - Unauthorized (`backend/tests/api/test_vehicles.py`):** Add a test case called `test_search_vehicles_unauthorized` that uses the unauthenticated `client` to make a GET request to `/api/vehicles/search?make=Toyota`. Assert it returns a 401 Unauthorized status code.
+3. **Test Suite - Empty Results:** Add a test case called `test_search_vehicles_not_found` using the `authorized_client`. Search for a vehicle that definitely does not exist in the database (e.g., `?make=NonExistentBrand`). Assert that the status code is 200 OK and the response body is an empty list `[]`.
+4. Run the tests to ensure everything remains green.

@@ -139,3 +139,20 @@ def test_search_vehicles_success(authorized_client):
     assert response_price.status_code == 200
     data_price = response_price.json()
     assert len(data_price) == 2
+
+def test_search_vehicles_unauthorized(client):
+    """
+    Test that an unauthenticated user cannot search vehicles.
+    """
+    response = client.get("/api/vehicles/search?make=Toyota")
+    assert response.status_code == 401
+
+def test_search_vehicles_not_found(authorized_client):
+    """
+    Test that searching for a non-existent vehicle returns 200 OK and an empty list.
+    """
+    response = authorized_client.get("/api/vehicles/search?make=NonExistentBrand")
+    assert response.status_code == 200
+    data = response.json()
+    assert isinstance(data, list)
+    assert len(data) == 0

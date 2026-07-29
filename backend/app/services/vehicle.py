@@ -15,8 +15,10 @@ def search_vehicles(
     model: str = None, 
     category: str = None, 
     min_price: float = None, 
-    max_price: float = None
+    max_price: float = None,
+    skip: int = 0,
+    limit: int = 100
 ) -> list[Vehicle]:
     return vehicle_repo.search_vehicles(
-        db, make=make, model=model, category=category, min_price=min_price, max_price=max_price
+        db, make=make, model=model, category=category, min_price=min_price, max_price=max_price, skip=skip, limit=limit
     )

@@ -18,7 +18,9 @@ def search_vehicles(
     model: str = None, 
     category: str = None, 
     min_price: float = None, 
-    max_price: float = None
+    max_price: float = None,
+    skip: int = 0,
+    limit: int = 100
 ) -> list[Vehicle]:
     query = db.query(Vehicle)
     if make:
@@ -31,4 +33,4 @@ def search_vehicles(
         query = query.filter(Vehicle.price >= min_price)
     if max_price is not None:
         query = query.filter(Vehicle.price <= max_price)
-    return query.all()
+    return query.offset(skip).limit(limit).all()

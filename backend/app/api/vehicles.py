@@ -27,6 +27,8 @@ def search_vehicles(
     category: Optional[str] = None,
     min_price: Optional[float] = None,
     max_price: Optional[float] = None,
+    skip: int = 0,
+    limit: int = 100,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
@@ -34,7 +36,7 @@ def search_vehicles(
     Search vehicles by various criteria.
     """
     return vehicle_service.search_vehicles(
-        db=db, make=make, model=model, category=category, min_price=min_price, max_price=max_price
+        db=db, make=make, model=model, category=category, min_price=min_price, max_price=max_price, skip=skip, limit=limit
     )
 
 @router.get("", response_model=list[VehicleResponse])
