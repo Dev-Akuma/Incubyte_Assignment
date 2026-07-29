@@ -487,7 +487,7 @@ Please implement the following step-by-step:
    - Accept the `id` as a path parameter and `VehicleSale` as the request body.
    - Call the `record_sale` service method and return the result using `response_model=VehicleResponse`.
 
-# REFACTOR : Implementing Logic Validation for edge-cases
+## REFACTOR : Implementing Logic Validation for edge-cases
 Act as an expert Full-Stack Developer. Our vehicle sale test is passing, but we need to perform the "Refactor" step by adding robust business logic validation and edge-case testing for the inventory operation.
 
 Please review and refactor the Vehicle Sale implementation:
@@ -497,3 +497,16 @@ Please review and refactor the Vehicle Sale implementation:
 3. **Test Suite - Insufficient Stock (`backend/tests/api/test_inventory.py`):** Add a test called `test_record_vehicle_sale_insufficient_stock`. `POST` a vehicle with a quantity of 2. Attempt to `POST` a sale of 5. Assert the response status code is 400 Bad Request.
 4. **Test Suite - Invalid Input:** Add a test called `test_record_vehicle_sale_invalid_quantity`. Attempt to `POST` a sale with a quantity of 0 or a negative number. Assert the response status code is 422 Unprocessable Entity (from Pydantic validation).
 5. Run the tests to ensure everything is green
+
+## RED : Restock Endpont Failing Testcase
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are finishing Phase 3 (Inventory Operations) for our Car Dealership Inventory System.
+
+CRITICAL CONSTRAINT: Do NOT write any implementation code for the restock route or service. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
+
+Please do the following step-by-step:
+1. **Test File (`backend/tests/api/test_inventory.py`):** Open the existing inventory test file.
+2. **Write the Test:** Add a test case called `test_restock_vehicle_success`.
+   - Use the `authorized_client` to `POST` a new vehicle to `/api/vehicles` with a starting `quantity` of 5, and extract its `id`.
+   - Make a `POST` request to a new endpoint `/api/vehicles/{id}/restock` with a JSON payload: `{"quantity": 3}` (representing the number of new cars received).
+   - Assert that the response status code is 200 OK.
+   - Assert that the response JSON shows the vehicle's new `quantity` is exactly 8.
