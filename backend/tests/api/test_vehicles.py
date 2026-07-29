@@ -102,3 +102,40 @@ def test_get_all_vehicles_pagination(authorized_client):
     assert response_limit.status_code == 200
     data_limit = response_limit.json()
     assert len(data_limit) <= 2  # Might be less if DB is cleared, but definitely shouldn't exceed 2
+
+def test_search_vehicles_success(authorized_client):
+    """
+    Test that an authorized user can search vehicles by make, category, and price range.
+    """
+    # 1. Toyota SUV ($25,000)
+    authorized_client.post("/api/vehicles", json={
+        "make": "Toyota", "model": "RAV4", "category": "SUV", "price": 25000.0, "quantity": 1
+    })
+    # 2. Honda Sedan ($15,000)
+    authorized_client.post("/api/vehicles", json={
+        "make": "Honda", "model": "Civic", "category": "Sedan", "price": 15000.0, "quantity": 1
+    })
+    # 3. Ford Truck ($35,000)
+    authorized_client.post("/api/vehicles", json={
+        "make": "Ford", "model": "F-150", "category": "Truck", "price": 35000.0, "quantity": 1
+    })
+
+    # Search by make
+    response_make = authorized_client.get("/api/vehicles/search?make=Toyota")
+    assert response_make.status_code == 200
+    data_make = response_make.json()
+    assert len(data_make) == 1
+    assert data_make[0]["make"] == "Toyota"
+
+    # Search by category
+    response_category = authorized_client.get("/api/vehicles/search?category=Sedan")
+    assert response_category.status_code == 200
+    data_category = response_category.json()
+    assert len(data_category) == 1
+    assert data_category[0]["category"] == "Sedan"
+
+    # Search by price range
+    response_price = authorized_client.get("/api/vehicles/search?min_price=20000&max_price=40000")
+    assert response_price.status_code == 200
+    data_price = response_price.json()
+    assert len(data_price) == 2

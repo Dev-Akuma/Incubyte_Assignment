@@ -329,3 +329,17 @@ CONSTRAINTS:
 
 OUTPUT:
 - Provide the full updated content of the README.md file.
+
+# PHASE 4 - Searching and Filtering
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are continuing Phase 2 (Vehicle CRUD) for our Car Dealership Inventory System.
+
+CRITICAL CONSTRAINT: Do NOT write any implementation code for the search route, service, or repository. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
+
+Please do the following:
+1. Open `backend/tests/api/test_vehicles.py`.
+2. Add a new test case called `test_search_vehicles_success`.
+3. Inside the test, first use the `authorized_client` to `POST` at least 3 distinct vehicles to `/api/vehicles`. Make sure they vary in make, category, and price (e.g., a $25,000 Toyota SUV, a $15,000 Honda Sedan, and a $35,000 Ford Truck).
+4. Perform the following `GET` requests using the `authorized_client` to `/api/vehicles/search` and assert the results for each:
+   - Search by make: `?make=Toyota`. Assert response count is 1 and the make matches.
+   - Search by category: `?category=Sedan`. Assert response count is 1 and the category matches.
+   - Search by price range: `?min_price=20000&max_price=40000`. Assert response count is 2 (the Toyota and the Ford).
