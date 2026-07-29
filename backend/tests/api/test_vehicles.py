@@ -38,3 +38,40 @@ def test_create_vehicle_unauthorized(client):
     response = client.post("/api/vehicles", json=payload)
     
     assert response.status_code == 401
+
+def test_get_all_vehicles_success(authorized_client):
+    """
+    Test that an authorized user can retrieve a list of all vehicles.
+    Expects a 200 OK status and a list containing the created vehicles.
+    """
+    vehicle1 = {
+        "make": "Honda",
+        "model": "Civic",
+        "category": "Sedan",
+        "price": 22000.0,
+        "quantity": 2
+    }
+    vehicle2 = {
+        "make": "Ford",
+        "model": "F-150",
+        "category": "Truck",
+        "price": 35000.0,
+        "quantity": 1
+    }
+    
+    # Create the vehicles
+    authorized_client.post("/api/vehicles", json=vehicle1)
+    authorized_client.post("/api/vehicles", json=vehicle2)
+    
+    # Retrieve all vehicles
+    response = authorized_client.get("/api/vehicles")
+    
+    assert response.status_code == 200
+    data = response.json()
+    assert isinstance(data, list)
+    assert len(data) >= 2
+    
+    # Verify the created vehicles are in the response
+    makes_models = [(v["make"], v["model"]) for v in data]
+    assert (vehicle1["make"], vehicle1["model"]) in makes_models
+    assert (vehicle2["make"], vehicle2["model"]) in makes_models

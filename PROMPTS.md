@@ -245,3 +245,16 @@ Please review and refactor the Vehicle creation implementation:
 2. **Validation (`app/schemas/vehicle.py`):** Update the `VehicleCreate` Pydantic model to enforce business rules using `Field`. For example, `price` must be greater than 0, and `quantity` must be greater than or equal to 0. 
 3. **Test Suite (`backend/tests/api/test_vehicles.py`):** Add a test case called `test_create_vehicle_unauthorized`. This test should use the standard, unauthenticated `client` (not the `authorized_client` fixture) to attempt to POST to `/api/vehicles`. Assert that it returns a 401 Unauthorized status code.
 4. Run the tests to ensure everything is green.
+
+# RED PHASE : Inventory List 
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are continuing Phase 2 (Vehicle CRUD) for our Car Dealership Inventory System.
+
+CRITICAL CONSTRAINT: Do NOT write any implementation code for the GET route in the router or service. We are strictly in the "Red" phase of TDD. Your only task is to write a FAILING test.
+
+Please do the following:
+1. Open `backend/tests/api/test_vehicles.py`.
+2. Add a new test case called `test_get_all_vehicles_success`.
+3. Inside the test, first use the `authorized_client` to `POST` two different vehicles to `/api/vehicles` (e.g., a Honda Civic and a Ford F-150) so the database has inventory.
+4. Next, use the `authorized_client` to make a `GET` request to `/api/vehicles`.
+5. Assert that the response status code is 200 OK.
+6. Assert that the response data is a list, that its length is at least 2, and that it contains the data for the vehicles you just created.
