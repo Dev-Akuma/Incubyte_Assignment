@@ -676,3 +676,20 @@ Please do the following step-by-step:
    - Change the input field's `type` from "email" to "text".
    - Change the input field's `placeholder` from "Email" to "Username".
    - Ensure the `URLSearchParams` appends `username` properly using the updated state variable.
+
+## RED : Dashboard inventory list
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We have completed the Login component and are now building the Dashboard to display the vehicle inventory.
+
+CRITICAL CONSTRAINT: Do NOT write any implementation code for the Dashboard component yet. We are strictly in the "Red" phase of TDD. Your task is to write a FAILING test.
+
+Please do the following step-by-step:
+
+1. **Write the Failing Test (`frontend/src/__tests__/Dashboard.test.tsx`):**
+   - Create the test file for a `Dashboard` component.
+   - Import `render`, `screen`, and `waitFor` from `@testing-library/react`.
+   - Write a test called "fetches and displays a list of vehicles".
+   - Mock `global.fetch` to return a successful response containing an array of fake vehicles (e.g., a Honda Civic and a Toyota Corolla).
+   - Render the `<Dashboard />` component.
+   - Assert that a loading state or title is present initially.
+   - Use `await waitFor` to assert that the text "Honda" and "Toyota" eventually appear in the document, proving the component rendered the fetched data.
+2. Provide the exact Git commit message to stage and commit this failing test, ensuring it includes the mandatory Incubyte `Co-authored-by` trailer. Format it exactly like this:
