@@ -581,6 +581,7 @@ Please do the following step-by-step:
    - Remove the default Vite boilerplate (logos, counter state, and Vite-specific text).
    - Import the `Login` component.
    - Render the `<Login />` component inside the main App return statement.
+<<<<<<< HEAD
 2. **Clean up CSS (Optional but recommended):** Clear out the default styles in `src/App.css` so they don't interfere with our layout.
 
 ## RED : Adding failing test case for login form
@@ -598,3 +599,6 @@ Please do the following step-by-step:
    - Use `fireEvent.change` to simulate typing an email into the Email input and a password into the Password input.
    - Use `fireEvent.click` to click the Login button.
    - Use `waitFor` to assert that `global.fetch` was called exactly once, with the correct URL (e.g., `/api/auth/login`) and a `POST` method containing the email and password.
+=======
+2. **Clean up CSS (Optional but recommended):** Clear out the default styles in `src/App.css` so they don't interfere with our layout.
+>>>>>>> 9f1a7117b6ec11963b9fbd1f3caa96b07fda610a
