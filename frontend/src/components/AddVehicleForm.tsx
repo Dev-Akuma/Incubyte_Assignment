@@ -26,9 +26,9 @@ export default function AddVehicleForm({ onVehicleAdded }: AddVehicleFormProps) 
         body: JSON.stringify({
           make,
           model,
-          year: Number(year),
-          price: Number(price),
-          quantity: Number(quantity)
+          year: parseInt(year, 10),
+          price: parseFloat(price),
+          quantity: parseInt(quantity, 10)
         })
       });
 
@@ -36,7 +36,7 @@ export default function AddVehicleForm({ onVehicleAdded }: AddVehicleFormProps) 
 
       if (!response.ok) {
         if (Array.isArray(data.detail)) {
-          setError(data.detail.map((err: any) => err.msg).join(', '));
+          setError(data.detail[0].msg);
         } else {
           setError(data.detail || 'Failed to add vehicle');
         }

@@ -785,3 +785,13 @@ Please do the following step-by-step:
    - Import `<AddVehicleForm />` and render it above or beside the vehicle list.
    - Extract the vehicle fetching logic inside `Dashboard` into a reusable function (e.g., `fetchVehicles`).
    - Pass `fetchVehicles` as the `onVehicleAdded` prop to the `<AddVehicleForm />` so the list refreshes automatically when a new car is added.
+
+## FIX : fixing auto type cast of string conversion in pydantic
+Act as an expert Full-Stack Developer. We are encountering a 422 Unprocessable Content error when submitting the AddVehicleForm because our numerical inputs are being sent as strings.
+
+Please refactor `frontend/src/components/AddVehicleForm.tsx` to fix this:
+
+1. **Cast Types Before Submit:** In the `onSubmit` handler, when constructing the JSON body for the `fetch` request, explicitly cast `year` and `quantity` to integers (using `parseInt(..., 10)` or `Number()`), and `price` to a float (using `parseFloat()` or `Number()`).
+2. **Safe Error Parsing:** Ensure that if `!response.ok`, the error state gracefully handles FastAPI's 422 validation array (e.g., checking if `data.detail` is an array and extracting the first message), exactly like we did in the Login component, to prevent React from crashing.
+
+Run the tests to ensure our assertions still pass.
