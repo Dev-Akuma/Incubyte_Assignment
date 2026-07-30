@@ -602,3 +602,19 @@ Please do the following step-by-step:
 =======
 2. **Clean up CSS (Optional but recommended):** Clear out the default styles in `src/App.css` so they don't interfere with our layout.
 >>>>>>> 9f1a7117b6ec11963b9fbd1f3caa96b07fda610a
+
+## GREEN : Implementing Login form state and API submission
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `Login` component submission.
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Update Component (`frontend/src/components/Login.tsx`):** 
+   - Import `useState` from React.
+   - Add state variables for `email` and `password`.
+   - Update the input fields to be controlled components by binding their `value` to the state and updating state via `onChange`.
+   - Wrap the inputs and button in a `<form>` element and add an `onSubmit` handler.
+   - In the `onSubmit` handler, call `e.preventDefault()`.
+   - Execute a `fetch` request to the endpoint exactly as expected by the test (e.g., `/api/auth/login` or whatever URL the test asserts), sending the email and password in the body.
+2. Ensure the code satisfies the test requirements perfectly without adding premature optimizations (like error handling or loading spinners yet).
