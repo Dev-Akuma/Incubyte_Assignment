@@ -731,3 +731,21 @@ Please do the following step-by-step:
    - Set up the routing structure:
      - Route `/` renders `<Login />`
      - Route `/dashboard` renders `<Dashboard />`
+
+## RED : Vehicle Form Test
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). Our Dashboard is rendering successfully, and we now need to build an `AddVehicleForm` component so users can add new cars to the inventory.
+
+CRITICAL CONSTRAINT: Do NOT write any implementation code for the component yet. We are strictly in the "Red" phase of TDD. Your task is to write a FAILING test.
+
+Please do the following step-by-step:
+
+1. **Write the Failing Test (`frontend/src/__tests__/AddVehicleForm.test.tsx`):**
+   - Create the test file for an `AddVehicleForm` component.
+   - Import `render`, `screen`, `fireEvent`, and `waitFor` from `@testing-library/react`.
+   - Write a test called "submits new vehicle data to the API".
+   - Mock `global.fetch` to return a 201 Created response with a fake vehicle object.
+   - Render the `<AddVehicleForm />` component.
+   - Use `fireEvent.change` to fill out inputs for Make (e.g., "Honda"), Model (e.g., "Civic"), Year (e.g., "2024"), Price (e.g., "25000"), and Quantity (e.g., "5"). 
+   - Use `fireEvent.click` to click an "Add Vehicle" submit button.
+   - Use `await waitFor` to assert that `global.fetch` was called exactly once with a `POST` to `/api/vehicles`, containing the correct headers (including Authorization) and the JSON body with the car details.
+2. Provide the exact Git commit message to stage and commit this failing test, ensuring it includes the mandatory Incubyte `Co-authored-by` trailer. Format it exactly like this:
