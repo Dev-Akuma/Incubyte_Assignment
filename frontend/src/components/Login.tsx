@@ -42,7 +42,7 @@ export default function Login() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-slate-50 via-gray-100 to-slate-200 min-h-screen flex flex-col items-center justify-center p-4">
+    <div className="bg-slate-950 min-h-screen w-full flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-10">
           <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mx-auto mb-6 shadow-md">
@@ -50,8 +50,8 @@ export default function Login() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 tracking-tight mb-2">Welcome back</h1>
-          <p className="text-gray-600 text-sm">Sign in to your account to continue</p>
+          <h1 className="text-3xl font-bold text-white tracking-tight mb-2">Welcome back</h1>
+          <p className="text-gray-300 text-sm">Sign in to your account to continue</p>
         </div>
 
         <div className="bg-slate-900 border border-slate-800 shadow-2xl rounded-2xl p-8">
