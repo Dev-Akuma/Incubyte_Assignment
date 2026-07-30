@@ -1207,3 +1207,22 @@ Used an AI assistant to fix text visibility issues, add a subtle background grad
 
 
 Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
+
+## TASK : fixing background inconsistencies
+Act as an expert Frontend Developer and UI/UX Designer. Our dashboard layout looks amazing in dark mode, but the main content area has a light gray/white background leaking on the right and bottom edges.
+
+Please update `frontend/src/components/Dashboard.tsx` to ensure full-bleed dark mode coverage:
+
+1. **Fix Viewport Background Leak:**
+   - Ensure the outer dashboard container and main content wrapper take up the full viewport (`min-h-screen w-full bg-slate-950 text-slate-100` or equivalent dark background classes). Remove any constraining wrappers that are leaving white space on the right.
+2. **CRITICAL CONSTRAINT:**
+   - Do NOT modify any `data-testid`, state variables, search handlers, or CRUD functionality (`handleSell`, `handleRestock`, `handleDelete`, `handleLogout`). The tests must remain 100% green.
+
+Once applied and tested, stage and commit the changes strictly using this message:
+
+CHORE: extend full-screen dark mode across dashboard view
+
+Used an AI assistant to fix background padding/margin leaks on the Dashboard, ensuring a seamless full-screen dark mode experience without breaking testable behavior.
+
+
+Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>

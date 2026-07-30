@@ -126,14 +126,14 @@ export default function Dashboard() {
   const outOfStockCount = vehicles.filter(v => v.quantity === 0).length;
 
   return (
-    <div className="min-h-screen bg-[#0B0B0D] text-white flex flex-col md:flex-row overflow-hidden font-sans">
+    <div className="min-h-screen w-full bg-slate-950 text-slate-100 flex flex-col md:flex-row overflow-hidden font-sans">
       
       {/* Sidebar Navigation */}
-      <aside className="w-64 border-r border-[rgba(255,255,255,0.08)] bg-[#0B0B0D] hidden md:flex flex-col h-screen flex-shrink-0">
+      <aside className="w-64 border-r border-[rgba(255,255,255,0.08)] bg-slate-950 hidden md:flex flex-col h-screen flex-shrink-0">
         <div className="p-6">
           <div className="flex items-center gap-3 mb-10">
             <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-              <Package className="w-5 h-5 text-[#0B0B0D]" />
+              <Package className="w-5 h-5 text-slate-950" />
             </div>
             <h2 className="text-lg font-semibold text-white tracking-tight">AutoSync</h2>
           </div>
@@ -161,7 +161,7 @@ export default function Dashboard() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 h-screen overflow-y-auto bg-[#0B0B0D]">
+      <main className="flex-1 h-screen overflow-y-auto bg-slate-950 w-full">
         <div className="p-6 md:p-8 lg:p-10 max-w-7xl mx-auto">
           
           {error && (
