@@ -1135,3 +1135,23 @@ Used an AI assistant to add the missing email state and input field to the Regis
 
 
 Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
+
+## TASK : creating test report
+Act as an expert Full-Stack Developer. We are ready to finalize our submission deliverables. We already have our PROMPTS.md file, but we need to generate and save our automated test reports.
+
+Please do the following:
+
+1. **Generate Backend Test Report:**
+   - Run the pytest command with coverage (e.g., `pytest --cov=app > backend_test_report.txt`) from the backend directory to output the test results into a file named `backend_test_report.txt` in the root (or backend folder as appropriate).
+2. **Generate Frontend Test Report:**
+   - Run the vitest run command (e.g., `npx vitest run --run > frontend_test_report.txt`) from the frontend directory to output the test results into a file named `frontend_test_report.txt`.
+3. **Stage and Commit Final Artifacts:**
+   - Ensure `PROMPTS.md`, `backend_test_report.txt`, and `frontend_test_report.txt` are included.
+   - Stage all changes and commit strictly using this commit message:
+
+TASK: generate test reports and finalize submission artifacts
+
+Used an AI assistant to execute test suites, capture coverage and results into report text files, and prepare all final deliverables for submission.
+
+
+Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>

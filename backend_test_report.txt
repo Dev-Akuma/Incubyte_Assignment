@@ -1,0 +1,35 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: E:\Dev-Akuma\Projects\Incubyte_Assignment\backend
+plugins: anyio-4.14.2, cov-7.1.0
+collected 25 items
+
+tests\api\test_auth.py ...                                               [ 12%]
+tests\api\test_inventory.py .......                                      [ 40%]
+tests\api\test_vehicles.py ...............                               [100%]
+
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.3-final-0 _______________
+
+Name                          Stmts   Miss  Cover
+-------------------------------------------------
+app\__init__.py                   0      0   100%
+app\api\auth.py                  28      1    96%
+app\api\deps.py                  25      4    84%
+app\api\vehicles.py              30      0   100%
+app\core\config.py                8      0   100%
+app\core\database.py             11      4    64%
+app\core\security.py             18      1    94%
+app\main.py                       7      0   100%
+app\models\user.py                9      0   100%
+app\models\vehicle.py            10      0   100%
+app\repositories\user.py          4      0   100%
+app\repositories\vehicle.py      35      1    97%
+app\schemas\token.py              4      0   100%
+app\schemas\user.py               6      0   100%
+app\schemas\vehicle.py           19      0   100%
+app\services\auth.py             11      1    91%
+app\services\vehicle.py          36      1    97%
+-------------------------------------------------
+TOTAL                           261     13    95%
+============================= 25 passed in 25.19s =============================
