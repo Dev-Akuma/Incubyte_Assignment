@@ -1046,3 +1046,39 @@ Used an AI assistant to integrate Tailwind CSS into the Vite build pipeline and 
 
 
 Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
+
+## TASK : Updating UI/UX for dashboard
+Act as an expert Frontend Developer and UI/UX Designer. Our Login screen is styled, and now we need to apply Tailwind CSS to the main application interface: the `Dashboard` and `AddVehicleForm` components.
+
+Please do the following step-by-step:
+
+1. **Style `AddVehicleForm.tsx`:**
+   - Wrap the form in a clean white card with a subtle shadow and rounded corners (`bg-white shadow-md rounded-lg p-6`).
+   - Add a section title like `<h2 className="text-xl font-semibold mb-4">Add New Vehicle</h2>`.
+   - Organize the inputs using a CSS grid so they sit nicely next to each other on wider screens (e.g., `grid grid-cols-1 md:grid-cols-2 gap-4`).
+   - Apply consistent styling to all inputs: light borders, padding, and a focus ring.
+   - Make the submit button span the full width of its container with a distinct color (e.g., green or dark gray).
+   - CRITICAL: Do not alter any state logic, `onSubmit` behavior, placeholders, or test attributes.
+
+2. **Style `Dashboard.tsx`:**
+   - Wrap the entire dashboard in a full-height container with a light gray background (`min-h-screen bg-gray-50`).
+   - Create a top navigation bar (`bg-white shadow-sm p-4 flex justify-between items-center mb-6`). Place the dashboard title on the left and the `Logout` button on the right (styled with a subtle hover effect, like a secondary button).
+   - Below the nav bar, wrap the `AddVehicleForm` and the inventory list in a max-width container (e.g., `max-w-6xl mx-auto px-4`).
+   - Style the inventory list. Transform the mapped vehicles into a responsive grid of cards (e.g., `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`), or a clean list view.
+   - Inside each vehicle card, clearly display the Make, Model, Year, Category, Price, and Quantity.
+   - Group the action buttons (Sell, Restock, Delete) in a `flex` container at the bottom of the card. Give them distinct, intuitive colors:
+     - Sell: Blue (`bg-blue-500 hover:bg-blue-600`)
+     - Restock: Green (`bg-green-500 hover:bg-green-600`)
+     - Delete: Red (`bg-red-500 hover:bg-red-600`)
+   - Style the error message (if a non-admin tries to delete) as a floating alert or a red text block above the list.
+   - CRITICAL: Do not break the `handleSell`, `handleRestock`, `handleDelete`, or `handleLogout` functions.
+
+Run the test suite. If the tests remain green, stage and commit the changes strictly using the following atomic commit message, maintaining the exact spacing:
+
+
+TASK: apply tailwind styling to dashboard and add vehicle form
+
+Used an AI assistant to apply a clean, responsive layout to the Dashboard and AddVehicleForm components using Tailwind CSS, ensuring all action buttons and forms maintain their testable behavior.
+
+
+Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>

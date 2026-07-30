@@ -8,6 +8,8 @@ interface Vehicle {
   model: string;
   year: number;
   quantity: number;
+  category?: string;
+  price?: number;
 }
 
 export default function Dashboard() {
@@ -102,25 +104,37 @@ export default function Dashboard() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="min-h-screen flex items-center justify-center bg-gray-50 text-gray-500">Loading...</div>;
   }
 
   return (
-    <div>
-      <h2>Dashboard</h2>
-      <button onClick={handleLogout}>Logout</button>
-      {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
-      <AddVehicleForm onVehicleAdded={fetchVehicles} />
-      <ul>
-        {vehicles.map((vehicle) => (
-          <li key={vehicle.id}>
-            {vehicle.year} {vehicle.make} {vehicle.model} - Qty: {vehicle.quantity}
-            <button onClick={() => handleSell(vehicle.id)}>Sell</button>
-            <button onClick={() => handleRestock(vehicle.id)}>Restock</button>
-            <button onClick={() => handleDelete(vehicle.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+    <div className="min-h-screen bg-gray-50 pb-12">
+      <nav className="bg-white shadow-sm p-4 flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold text-gray-800">Dashboard</h2>
+        <button onClick={handleLogout} className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-200">Logout</button>
+      </nav>
+      <div className="max-w-6xl mx-auto px-4">
+        {error && <div role="alert" className="mb-6 p-4 bg-red-100 text-red-700 rounded-lg shadow-sm">{error}</div>}
+        <AddVehicleForm onVehicleAdded={fetchVehicles} />
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {vehicles.map((vehicle) => (
+            <div key={vehicle.id} className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+              <div className="p-6 flex-grow">
+                <h3 className="text-xl font-bold text-gray-800 mb-2">{vehicle.year} {vehicle.make} {vehicle.model}</h3>
+                <p className="text-gray-600 mb-1"><span className="font-semibold">Category:</span> {vehicle.category || 'N/A'}</p>
+                <p className="text-gray-600 mb-1"><span className="font-semibold">Price:</span> ${vehicle.price || 0}</p>
+                <p className="text-gray-600"><span className="font-semibold">Qty:</span> {vehicle.quantity}</p>
+              </div>
+              <div className="bg-gray-50 p-4 border-t border-gray-100 flex gap-2">
+                <button onClick={() => handleSell(vehicle.id)} className="flex-1 bg-blue-500 text-white py-2 px-3 rounded hover:bg-blue-600 transition duration-200">Sell</button>
+                <button onClick={() => handleRestock(vehicle.id)} className="flex-1 bg-green-500 text-white py-2 px-3 rounded hover:bg-green-600 transition duration-200">Restock</button>
+                <button onClick={() => handleDelete(vehicle.id)} className="flex-1 bg-red-500 text-white py-2 px-3 rounded hover:bg-red-600 transition duration-200">Delete</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
