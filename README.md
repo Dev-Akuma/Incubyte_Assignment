@@ -2,6 +2,14 @@
 
 A full-stack RESTful inventory management application designed to handle vehicle inventory with Role-Based Access Control (RBAC).
 
+## Screenshots
+
+### Authentication
+![Authentication Page](./Authentication%20Page.png)
+
+### Inventory Dashboard
+![Inventory Dashboard](./Inventory%20Dashboard.png)
+
 ## Project Status
 
 | Phase | Status | Key Features |
@@ -10,6 +18,7 @@ A full-stack RESTful inventory management application designed to handle vehicle
 | Phase 1: Authentication | COMPLETED | Registration, Login, JWT Authentication, Password Hashing (bcrypt) |
 | Phase 2: Vehicle CRUD | COMPLETED | Full CRUD operations, Pagination, Clean Architecture (Routes -> Services -> Repositories), Edge-case testing |
 | Phase 3: Inventory Operations | COMPLETED | Purchase & Restock logic, Stock Validation (no negative stock), Strict TDD approach, Role-Based Access Control (Admin-only deletion and restocking) |
+| Phase 4: UI/UX Styling | COMPLETED | Premium Dark Mode Interface, Tailwind CSS Integration, Lucide Icons, Responsive Layouts |
 
 ## Key Architectural Highlights
 
@@ -72,6 +81,7 @@ To run the tests and generate a coverage report:
 *   Generated TDD test cases for Auth and implemented JWT/Hashing logic (Phase 1).
 *   Implemented CRUD, Pagination, and complex RBAC logic for Admin deletion (Phase 2).
 *   Designed business logic for Inventory Operations (Purchase/Restock) and stock validation (Phase 3).
+*   Designed and implemented a premium dark-mode interface with Tailwind CSS and Lucide icons, keeping a strict test suite completely green (Phase 4).
 
 **Reflection:**
-AI was critical in accelerating the TDD cycle, allowing me to focus on architectural integrity, security implementation (JWT/RBAC), and robust business logic validation.
+AI was critical in accelerating the TDD cycle, allowing me to focus on architectural integrity, security implementation (JWT/RBAC), robust business logic validation, and delivering a polished UI without compromising tests.
