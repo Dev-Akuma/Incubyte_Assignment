@@ -640,3 +640,13 @@ Please do the following step-by-step:
    - Conditionally render this error message in the UI (e.g., `<div role="alert">{error}</div>`).
    - In the `onSubmit` handler, check if `response.ok` is false. If so, parse the error and call `setError()`.
    - If `response.ok` is true, extract the token from the response and save it using `localStorage.setItem('token', data.access_token)`.
+
+## FIX : backend - frontend miscommunication
+Act as an expert Full-Stack Developer. Our Login component works perfectly in isolation, but when running the app in the browser, we are getting a 404 because Vite is sending API requests to port 5173 instead of our FastAPI backend.
+
+Please provide the exact updates needed for `frontend/vite.config.ts` to set up a proxy. 
+- Route all requests starting with `/api` to `http://localhost:8000` (or the correct backend port).
+- Set `changeOrigin: true`.
+
+Once you have provided the updated configuration, provide the exact Git commit message to stage and commit this fix, ensuring it includes the mandatory Incubyte `Co-authored-by` trailer. Format it exactly like this:
+
