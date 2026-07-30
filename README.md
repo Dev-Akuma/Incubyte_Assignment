@@ -1,51 +1,77 @@
-# Dealership Inventory App
+# Car Dealership Inventory System
 
-A full-stack web application designed for dealership inventory management. It provides a robust dashboard for managing vehicles, tracking stock levels, processing sales, and controlling user access.
+A full-stack RESTful inventory management application designed to handle vehicle inventory with Role-Based Access Control (RBAC).
+
+## Project Status
+
+| Phase | Status | Key Features |
+|---|---|---|
+| Phase 0: Setup | COMPLETED | Scaffolding, Testing Infrastructure, Database Configuration |
+| Phase 1: Authentication | COMPLETED | Registration, Login, JWT Authentication, Password Hashing (bcrypt) |
+| Phase 2: Vehicle CRUD | COMPLETED | Full CRUD operations, Pagination, Clean Architecture (Routes -> Services -> Repositories), Edge-case testing |
+| Phase 3: Inventory Operations | COMPLETED | Purchase & Restock logic, Stock Validation (no negative stock), Strict TDD approach, Role-Based Access Control (Admin-only deletion and restocking) |
+
+## Key Architectural Highlights
+
+*   **Clean Architecture:** Strict separation of concerns (Routes, Services, Repositories, Models).
+*   **Test-Driven Development (TDD):** Every feature was implemented using Red-Green-Refactor cycles, ensuring high code quality and test coverage.
+*   **Software Craftsmanship:** Focused on clean, readable code with robust edge-case handling (404 Not Found, 403 Forbidden, 422 Unprocessable Entity).
+
+## API Endpoints
+
+| Category | Method | Endpoint | Auth Required | Role | Description |
+|---|---|---|---|---|---|
+| Auth | POST | `/api/auth/register` | No | Public | Registers a new user. |
+| Auth | POST | `/api/auth/login` | No | Public | Authenticates user and returns JWT. |
+| Vehicles | POST | `/api/vehicles` | Yes | User | Creates a new vehicle. |
+| Vehicles | GET | `/api/vehicles` | Yes | User | Retrieves all vehicles with pagination (`?skip=0&limit=10`). |
+| Vehicles | PUT | `/api/vehicles/{id}` | Yes | User | Updates vehicle details. |
+| Vehicles | DELETE | `/api/vehicles/{id}` | Yes | Admin | Deletes a vehicle. |
+| Inventory | POST | `/api/vehicles/{id}/purchase` | Yes | User | Decreases stock quantity. Fails if stock is zero. |
+| Inventory | POST | `/api/vehicles/{id}/restock` | Yes | Admin | Increases stock quantity. |
 
 ## Tech Stack
 
-**Frontend:**
-- React
-- TypeScript
-- Vite
-- React Router
-- Vitest
-- React Testing Library
+*   **Backend:** FastAPI, SQLAlchemy, SQLite, Pytest, bcrypt, JWT.
+*   **Frontend:** React, Vite, Tailwind CSS, Axios.
 
-**Backend:**
-- FastAPI
-- Python
-- Pydantic
-- Pytest
-
-## Development Methodology
-
-This entire application was developed strictly using **Test-Driven Development (TDD)**. Every feature was constructed following rigorous Red-Green-Refactor cycles to ensure a highly reliable and maintainable codebase from the ground up.
-
-## Completed Features
-
-- **Authentication:** JWT-based Authentication (Login/Logout) and Protected Routes.
-- **Dashboard:** Dynamic inventory list rendering and tracking.
-- **Add Vehicles:** Form for adding new vehicles with comprehensive API validation handling.
-- **Inventory Management:** Core operational functionalities, including Sell and Restock interactions.
-- **Role-Based Access Control:** Admin-only access guardrails (e.g., Delete functionality is restricted to administrators).
-
-## How to Run
+## Local Setup Instructions
 
 ### Backend
 
-1. Navigate to the `backend/` directory.
-2. Start the FastAPI development server:
-   ```bash
-   uvicorn app.main:app --reload
-   ```
-   The backend will be available at `http://127.0.0.1:8000`.
+1. Navigate to the backend directory: `cd backend`
+2. Create a virtual environment: `python -m venv venv`
+3. Activate the virtual environment:
+   * Windows: `venv\Scripts\activate`
+   * macOS/Linux: `source venv/bin/activate`
+4. Install requirements: `pip install -r requirements.txt`
+5. Run migrations via Alembic: `alembic upgrade head`
+6. Start uvicorn server: `uvicorn app.main:app --reload`
 
 ### Frontend
 
-1. Navigate to the `frontend/` directory.
-2. Start the Vite development server:
-   ```bash
-   npm run dev
-   ```
-   The frontend will be accessible at the local address provided by Vite (usually `http://localhost:5173`).
+1. Navigate to the frontend directory: `cd frontend`
+2. Install node modules: `npm install`
+3. Run the Vite dev server: `npm run dev`
+
+## Testing
+
+To run the backend test suite, ensure you are in the backend directory with your virtual environment activated, then run:
+`pytest`
+
+To run the tests and generate a coverage report:
+`pytest --cov=app`
+
+## My AI Usage
+
+**Tools Used:**
+*   Gemini (AI Assistant)
+
+**How they were used:**
+*   Scaffolded project and testing infrastructure (Phase 0).
+*   Generated TDD test cases for Auth and implemented JWT/Hashing logic (Phase 1).
+*   Implemented CRUD, Pagination, and complex RBAC logic for Admin deletion (Phase 2).
+*   Designed business logic for Inventory Operations (Purchase/Restock) and stock validation (Phase 3).
+
+**Reflection:**
+AI was critical in accelerating the TDD cycle, allowing me to focus on architectural integrity, security implementation (JWT/RBAC), and robust business logic validation.

@@ -990,3 +990,31 @@ Used an AI assistant to add a Logout button to the Dashboard that clears the aut
 
 
 Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
+
+## DOC : Updating README.md file for all the progress made so far
+Act as an expert Technical Writer and Full-Stack Developer. We have just completed the mechanical "logic" phase of our Dealership Inventory Management application using strict Test-Driven Development (TDD). 
+
+Please update the `README.md` file in the root of the project to reflect the current state of the application. 
+
+Structure the README with the following sections:
+1. **Project Title & Overview:** A brief description of the full-stack Dealership Inventory App.
+2. **Tech Stack:** 
+   - Frontend: React, TypeScript, Vite, React Router, Vitest, React Testing Library.
+   - Backend: FastAPI, Python, Pydantic, Pytest.
+3. **Development Methodology:** Briefly highlight that the entire application was built using strict TDD (Red-Green-Refactor cycles).
+4. **Completed Features:**
+   - JWT-based Authentication (Login/Logout) and Protected Routes.
+   - Dashboard Inventory rendering.
+   - Add new vehicles with API validation handling.
+   - Inventory Management: Sell and Restock functionalities.
+   - Role-Based Access Control (Admin-only Delete functionality).
+5. **How to Run:** Quick instructions on starting both the FastAPI backend and Vite frontend dev servers.
+
+Do not touch any application code or tests—only update the `README.md`. Once complete, stage and commit the changes strictly using the following atomic commit message, maintaining the exact spacing:
+
+DOCS: update readme with full-stack feature progress
+
+Used an AI assistant to document the completed core CRUD features, authentication loop, tech stack, and TDD methodology in the project README.
+
+
+Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
