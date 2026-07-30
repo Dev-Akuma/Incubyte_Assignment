@@ -1106,9 +1106,32 @@ Please provide the complete, updated code for the following step-by-step:
 
 Ensure all tests pass. Once applied, stage and commit the changes strictly using this message:
 
-feat: implement registration, search filter, and zero stock validation
+TASK: implement registration, search filter, and zero stock validation
 
 Used an AI assistant to rapidly implement the Registration component, Dashboard search filtering, and zero-stock UI validation along with their corresponding test suites.
+
+
+Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
+
+## FIX : registration requires an additional field email
+Act as an expert Full-Stack Developer. We encountered a 422 Unprocessable Entity error during registration. The backend requires an `email` field, but our frontend is currently only sending `username` and `password`.
+
+Please do the following step-by-step:
+
+1. **Update the Component (`frontend/src/components/Register.tsx`):**
+   - Add a new state variable for `email`.
+   - Add a controlled text `<input>` for the email (type="email", placeholder="Email").
+   - Update the `handleSubmit` function to include `"email": email` in the `JSON.stringify` body payload.
+
+2. **Update the Test (`frontend/src/__tests__/Register.test.tsx`):**
+   - Update the registration test to include a `fireEvent.change` for the email input.
+   - Update the `waitFor` assertion to ensure the mocked `fetch` payload includes the email field.
+
+Run the tests to ensure everything is green. Once complete, stage and commit the changes strictly using this message:
+
+FIX: add required email field to registration form
+
+Used an AI assistant to add the missing email state and input field to the Register component and test suite to satisfy backend validation.
 
 
 Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>

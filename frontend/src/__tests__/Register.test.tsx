@@ -17,6 +17,7 @@ describe('Register Component', () => {
         render(<BrowserRouter><Register /></BrowserRouter>);
         
         expect(screen.getByPlaceholderText(/username/i)).toBeInTheDocument();
+        expect(screen.getByPlaceholderText(/email/i)).toBeInTheDocument();
         expect(screen.getByPlaceholderText(/password/i)).toBeInTheDocument();
         expect(screen.getByRole('button', { name: /register/i })).toBeInTheDocument();
         expect(screen.getByRole('link', { name: /login/i })).toBeInTheDocument();
@@ -31,6 +32,7 @@ describe('Register Component', () => {
         render(<BrowserRouter><Register /></BrowserRouter>);
 
         fireEvent.change(screen.getByPlaceholderText(/username/i), { target: { value: 'testuser' } });
+        fireEvent.change(screen.getByPlaceholderText(/email/i), { target: { value: 'test@example.com' } });
         fireEvent.change(screen.getByPlaceholderText(/password/i), { target: { value: 'password123' } });
         fireEvent.click(screen.getByRole('button', { name: /register/i }));
 
@@ -40,7 +42,7 @@ describe('Register Component', () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username: 'testuser', password: 'password123' })
+                body: JSON.stringify({ username: 'testuser', email: 'test@example.com', password: 'password123' })
             }));
             expect(mockNavigate).toHaveBeenCalledWith('/');
         });
@@ -55,6 +57,7 @@ describe('Register Component', () => {
         render(<BrowserRouter><Register /></BrowserRouter>);
 
         fireEvent.change(screen.getByPlaceholderText(/username/i), { target: { value: 'testuser' } });
+        fireEvent.change(screen.getByPlaceholderText(/email/i), { target: { value: 'test@example.com' } });
         fireEvent.change(screen.getByPlaceholderText(/password/i), { target: { value: 'password123' } });
         fireEvent.click(screen.getByRole('button', { name: /register/i }));
 
