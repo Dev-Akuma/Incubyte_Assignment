@@ -892,3 +892,50 @@ Please do the following step-by-step:
    - Find a button with the text "Delete" inside the rendered vehicle item and use `fireEvent.click` to click it.
    - Use `await waitFor` to assert that `global.fetch` was called with a `DELETE` method to `/api/vehicles/1`.
    - Assert that the request included the `Authorization` header.
+
+# GREEN : Implementing Deletion
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the Delete vehicle functionality on the Dashboard.
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Update Component (`frontend/src/components/Dashboard.tsx`):** 
+   - Create an async function `handleDelete(id: number)`.
+   - Inside `handleDelete`, execute a `fetch` request to `/api/vehicles/${id}` with a `DELETE` method.
+   - Include the `Authorization: Bearer ${localStorage.getItem('token')}` header.
+   - If `response.ok` is true, call the existing `fetchVehicles()` function to refresh the inventory list so the deleted vehicle is removed from the UI.
+   - In the JSX where the vehicles are mapped, add a `<button onClick={() => handleDelete(vehicle.id)}>Delete</button>`.
+2. Ensure the code satisfies the test requirements perfectly without adding premature optimizations.
+
+Run the tests. Once it is green, stage and commit the changes strictly using the following atomic commit message, maintaining the exact spacing:
+
+GREEN: implement vehicle deletion functionality
+
+Used an AI assistant to add a Delete button to the Dashboard inventory list, wiring it up to trigger the delete API and refresh the list upon success.
+
+
+Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
+
+## REFACTOR : updating deletion for error handling
+Act as an expert Full-Stack Developer. Our Delete button is passing its basic test, but we need to perform a "Refactor" to handle unauthorized (403) errors gracefully, since only admins can delete vehicles.
+
+Please do the following step-by-step:
+
+1. **Update the Test (`frontend/src/__tests__/Dashboard.test.tsx`):**
+   - Add a test called "displays error if non-admin tries to delete a vehicle".
+   - Mock `global.fetch` to return a 403 Forbidden response when the DELETE request is made.
+   - Render the component, click Delete, and `await waitFor` to assert an error message (like "Only admins can delete" or just a generic API error) appears on the screen.
+2. **Update the Component (`frontend/src/components/Dashboard.tsx`):**
+   - Add an `error` state variable to the Dashboard (e.g., `const [error, setError] = useState<string | null>(null);`).
+   - In `handleDelete`, if `!response.ok`, parse the error from the response (or set a fallback string) and update the error state.
+   - Display this error message somewhere prominent on the Dashboard.
+
+Run the tests to ensure everything is green. Once complete, stage and commit the changes strictly using this message:
+
+REFACTOR: add error handling for unauthorized delete attempts
+
+Used an AI assistant to catch 403 Forbidden errors when non-admins attempt to delete vehicles, updating the UI to display the error message.
+
+
+Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>

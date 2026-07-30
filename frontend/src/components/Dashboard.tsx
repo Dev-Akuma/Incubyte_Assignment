@@ -12,6 +12,7 @@ interface Vehicle {
 export default function Dashboard() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchVehicles = async () => {
     try {
@@ -74,6 +75,7 @@ export default function Dashboard() {
 
   const handleDelete = async (id: number) => {
     try {
+      setError(null);
       const response = await fetch(`/api/vehicles/${id}`, {
         method: 'DELETE',
         headers: {
@@ -82,9 +84,13 @@ export default function Dashboard() {
       });
       if (response.ok) {
         fetchVehicles();
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        setError(errorData.detail || 'Only admins can delete');
       }
-    } catch (error) {
-      console.error('Failed to delete vehicle:', error);
+    } catch (err) {
+      console.error('Failed to delete vehicle:', err);
+      setError('An unexpected error occurred');
     }
   };
 
@@ -95,6 +101,7 @@ export default function Dashboard() {
   return (
     <div>
       <h2>Dashboard</h2>
+      {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
       <AddVehicleForm onVehicleAdded={fetchVehicles} />
       <ul>
         {vehicles.map((vehicle) => (

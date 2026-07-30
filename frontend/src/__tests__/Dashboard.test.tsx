@@ -134,4 +134,35 @@ describe('Dashboard Component', () => {
         
         getItemSpy.mockRestore();
     });
+
+    it('displays error if non-admin tries to delete a vehicle', async () => {
+        global.fetch = vi.fn().mockResolvedValueOnce({
+            ok: true,
+            json: () => Promise.resolve([
+                { id: 1, make: 'Tesla', model: 'Model 3', year: 2023, quantity: 3, category: 'Sedan' }
+            ])
+        });
+
+        render(<Dashboard />);
+
+        await waitFor(() => {
+            expect(screen.getByText(/Tesla/i)).toBeInTheDocument();
+        });
+
+        (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+            ok: false,
+            status: 403,
+            json: () => Promise.resolve({ detail: 'Only admins can delete' })
+        });
+
+        const getItemSpy = vi.spyOn(Storage.prototype, 'getItem').mockReturnValue('fake-jwt-token');
+
+        fireEvent.click(screen.getByRole('button', { name: /delete/i }));
+
+        await waitFor(() => {
+            expect(screen.getByText(/Only admins can delete/i)).toBeInTheDocument();
+        });
+        
+        getItemSpy.mockRestore();
+    });
 });
