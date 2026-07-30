@@ -939,3 +939,29 @@ Used an AI assistant to catch 403 Forbidden errors when non-admins attempt to de
 
 
 Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
+
+## RED : Logout functionality test case
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). The core inventory CRUD is complete. We now need to add a "Logout" feature to the Dashboard.
+
+CRITICAL CONSTRAINT: Do NOT write the implementation code to make the test pass yet. We are strictly in the "Red" phase of TDD. Your task is to write a FAILING test.
+
+Please do the following step-by-step:
+
+1. **Update the Test (`frontend/src/__tests__/Dashboard.test.tsx`):**
+   - Add a new test called "logs the user out when the logout button is clicked".
+   - Mock `react-router-dom`'s `useNavigate` to spy on the redirect (just like we did in the Login tests).
+   - Set a dummy token in `localStorage` before rendering.
+   - Render the `<Dashboard />` component.
+   - Find a button with the text "Logout" and click it using `fireEvent.click`.
+   - Assert that `localStorage.getItem('token')` is `null` (or that `localStorage.removeItem` was called).
+   - Assert that the mocked navigate function was called with `'/'` to send the user back to the login screen.
+2. Provide the exact Git commit message to stage and commit this failing test. Format it exactly like this:
+
+RED: add failing test for user logout
+
+Used an AI assistant to write a test asserting that clicking the Logout button removes the token from localStorage and navigates back to the login page.
+
+
+Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
+
+Stop after providing the test code and the commit message. Do not implement the Logout button yet.

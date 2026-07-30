@@ -1,6 +1,16 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Dashboard from '../components/Dashboard';
+import { useNavigate } from 'react-router-dom';
+
+const mockNavigate = vi.fn();
+vi.mock('react-router-dom', async () => {
+    const actual = await vi.importActual('react-router-dom');
+    return {
+        ...actual,
+        useNavigate: () => mockNavigate
+    };
+});
 
 describe('Dashboard Component', () => {
     it('fetches and displays a list of vehicles', async () => {
@@ -164,5 +174,27 @@ describe('Dashboard Component', () => {
         });
         
         getItemSpy.mockRestore();
+    });
+
+    it('logs the user out when the logout button is clicked', async () => {
+        global.fetch = vi.fn().mockResolvedValueOnce({
+            ok: true,
+            json: () => Promise.resolve([
+                { id: 1, make: 'Honda', model: 'Civic', year: 2020 }
+            ])
+        });
+
+        localStorage.setItem('token', 'fake-jwt-token');
+
+        render(<Dashboard />);
+
+        await waitFor(() => {
+            expect(screen.getByText(/Honda/i)).toBeInTheDocument();
+        });
+
+        fireEvent.click(screen.getByRole('button', { name: /logout/i }));
+
+        expect(localStorage.getItem('token')).toBeNull();
+        expect(mockNavigate).toHaveBeenCalledWith('/');
     });
 });
