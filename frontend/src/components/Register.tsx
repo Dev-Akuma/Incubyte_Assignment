@@ -38,19 +38,19 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4">
+    <div className="bg-gradient-to-br from-slate-50 via-gray-100 to-slate-200 min-h-screen flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-10">
-          <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mx-auto mb-6 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-            <svg className="w-6 h-6 text-[#0B0B0D]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mx-auto mb-6 shadow-md">
+            <svg className="w-6 h-6 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
             </svg>
           </div>
-          <h1 className="text-2xl font-semibold text-white tracking-tight mb-2">Create an account</h1>
-          <p className="text-[#A1A1AA] text-sm">Enter your details below to get started</p>
+          <h1 className="text-3xl font-bold text-gray-900 tracking-tight mb-2">Create an account</h1>
+          <p className="text-gray-600 text-sm">Enter your details below to get started</p>
         </div>
 
-        <div className="bg-[#17171C] border border-[rgba(255,255,255,0.08)] rounded-[20px] p-8 shadow-2xl">
+        <div className="bg-slate-900 border border-slate-800 shadow-2xl rounded-2xl p-8">
           {error && (
             <div role="alert" className="mb-6 p-4 bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.2)] text-[#EF4444] rounded-xl text-sm font-medium flex items-center gap-3">
               <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -62,49 +62,49 @@ export default function Register() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-[#A1A1AA] ml-1">Username</label>
+              <label className="text-sm font-medium text-gray-400 ml-1">Username</label>
               <input
                 type="text"
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-4 py-3 bg-[#111114] border border-[rgba(255,255,255,0.08)] rounded-xl text-white text-sm outline-none focus:border-[#6366F1] focus:ring-1 focus:ring-[#6366F1] transition-all"
+                className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 transition-all"
                 required
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-[#A1A1AA] ml-1">Email</label>
+              <label className="text-sm font-medium text-gray-400 ml-1">Email</label>
               <input
                 type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-[#111114] border border-[rgba(255,255,255,0.08)] rounded-xl text-white text-sm outline-none focus:border-[#6366F1] focus:ring-1 focus:ring-[#6366F1] transition-all"
+                className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 transition-all"
                 required
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-[#A1A1AA] ml-1">Password</label>
+              <label className="text-sm font-medium text-gray-400 ml-1">Password</label>
               <input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-[#111114] border border-[rgba(255,255,255,0.08)] rounded-xl text-white text-sm outline-none focus:border-[#6366F1] focus:ring-1 focus:ring-[#6366F1] transition-all"
+                className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 transition-all"
                 required
               />
             </div>
 
-            <button type="submit" className="w-full bg-[#6366F1] hover:bg-[#4F46E5] text-white font-medium py-3 px-4 rounded-xl transition-all mt-6">
+            <button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-xl transition-all mt-6 shadow-lg shadow-indigo-500/30">
               Register
             </button>
           </form>
         </div>
 
-        <p className="text-center text-[#6B7280] text-sm mt-8">
-          Already have an account? <Link to="/login" className="text-white font-medium hover:underline ml-1">Login</Link>
+        <p className="text-center text-gray-600 text-sm mt-8">
+          Already have an account? <Link to="/" className="text-indigo-600 font-semibold hover:underline ml-1">Login</Link>
         </p>
       </div>
     </div>

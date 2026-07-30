@@ -1184,3 +1184,26 @@ Used an AI assistant to apply a nostalgic retro operating system / vintage works
 
 
 Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
+
+## TASK : fixing typgraphy and other ui aspects
+Act as an expert Frontend Developer and UI/UX Designer. Our login page layout is working, but the typography contrast is off ("Welcome back" is barely visible against the light background), and the overall aesthetic feels a bit plain.
+
+Please update `frontend/src/components/Login.tsx` (and `Register.tsx` if applicable) with the following style improvements:
+
+1. **Fix Typography Contrast:**
+   - Change the header text ("Welcome back", "Sign in to your account to continue") to use high-contrast dark text classes (e.g., `text-gray-900` for titles and `text-gray-600` for subtitles) so they are clearly readable against the light background.
+2. **Elevate the Background & Card:**
+   - Give the outer page wrapper a richer look, such as a subtle gradient or a modern slate tint (e.g., `bg-gradient-to-br from-slate-50 via-gray-100 to-slate-200 min-h-screen flex flex-col items-center justify-center`).
+   - Enhance the inner dark card with a crisp border, subtle ring, or refined shadow (`bg-slate-900 border border-slate-800 shadow-2xl rounded-2xl p-8 w-full max-w-md`).
+   - Style the input fields and buttons cleanly inside the card with sharp focus states (`focus:ring-2 focus:ring-indigo-500`).
+
+CRITICAL: Do NOT modify any `data-testid`, state variables, or form submission logic. The tests must remain green.
+
+Once applied and tested, stage and commit the changes strictly using this message:
+
+CHORE: fix typography contrast and enhance login screen styling
+
+Used an AI assistant to fix text visibility issues, add a subtle background gradient, and polish the Login card aesthetics without breaking testable behavior.
+
+
+Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
