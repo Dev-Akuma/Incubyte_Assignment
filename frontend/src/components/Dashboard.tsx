@@ -17,6 +17,13 @@ export default function Dashboard() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredVehicles = vehicles.filter(v => 
+    v.make.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    v.model.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    (v.category && v.category.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
 
   const fetchVehicles = async () => {
     try {
@@ -116,9 +123,19 @@ export default function Dashboard() {
       <div className="max-w-6xl mx-auto px-4">
         {error && <div role="alert" className="mb-6 p-4 bg-red-100 text-red-700 rounded-lg shadow-sm">{error}</div>}
         <AddVehicleForm onVehicleAdded={fetchVehicles} />
+
+        <div className="mb-6">
+          <input 
+            type="text" 
+            placeholder="Search inventory by make, model, or category..." 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {vehicles.map((vehicle) => (
+          {filteredVehicles.map((vehicle) => (
             <div key={vehicle.id} className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
               <div className="p-6 flex-grow">
                 <h3 className="text-xl font-bold text-gray-800 mb-2">{vehicle.year} {vehicle.make} {vehicle.model}</h3>
@@ -127,7 +144,13 @@ export default function Dashboard() {
                 <p className="text-gray-600"><span className="font-semibold">Qty:</span> {vehicle.quantity}</p>
               </div>
               <div className="bg-gray-50 p-4 border-t border-gray-100 flex gap-2">
-                <button onClick={() => handleSell(vehicle.id)} className="flex-1 bg-blue-500 text-white py-2 px-3 rounded hover:bg-blue-600 transition duration-200">Sell</button>
+                <button 
+                  onClick={() => handleSell(vehicle.id)} 
+                  disabled={vehicle.quantity === 0}
+                  className="flex-1 bg-blue-500 text-white py-2 px-3 rounded hover:bg-blue-600 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Sell
+                </button>
                 <button onClick={() => handleRestock(vehicle.id)} className="flex-1 bg-green-500 text-white py-2 px-3 rounded hover:bg-green-600 transition duration-200">Restock</button>
                 <button onClick={() => handleDelete(vehicle.id)} className="flex-1 bg-red-500 text-white py-2 px-3 rounded hover:bg-red-600 transition duration-200">Delete</button>
               </div>

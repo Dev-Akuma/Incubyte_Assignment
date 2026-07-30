@@ -1082,3 +1082,33 @@ Used an AI assistant to apply a clean, responsive layout to the Dashboard and Ad
 
 
 Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
+
+## TASK : Refactoring left-over features missed in the process
+Act as an expert Full-Stack Developer. We are under a strict time limit to finish this kata. We need to implement three missing frontend requirements instantly, complete with passing tests and Tailwind CSS styling.
+
+Please provide the complete, updated code for the following step-by-step:
+
+1. **Zero Stock Validation (`frontend/src/components/Dashboard.tsx` & `Dashboard.test.tsx`):** 
+   - Update the "Sell" button to be disabled if `vehicle.quantity === 0`.
+   - Add Tailwind classes for the disabled state (e.g., `disabled:opacity-50 disabled:cursor-not-allowed`).
+   - Add a test asserting the Sell button is disabled when stock is zero.
+
+2. **Search & Filter (`frontend/src/components/Dashboard.tsx` & `Dashboard.test.tsx`):**
+   - Add a search `<input>` element above the inventory list, styled nicely with Tailwind.
+   - Implement state (`searchTerm`) and locally filter the displayed vehicles by `make`, `model`, or `category` based on the input.
+   - Add a test asserting that typing in the search box correctly filters the displayed list.
+
+3. **Registration Component (`frontend/src/components/Register.tsx` & `Register.test.tsx`):**
+   - Create a new `Register.tsx` component that POSTs to `/api/auth/register` with `username` (or email) and `password`.
+   - Style it identically to the Login card using Tailwind. 
+   - Add a link to navigate between Login and Register. (Update `Login.tsx` to include a "Need an account? Register" link).
+   - Provide the complete test suite for `Register.test.tsx` verifying successful registration and error handling.
+
+Ensure all tests pass. Once applied, stage and commit the changes strictly using this message:
+
+feat: implement registration, search filter, and zero stock validation
+
+Used an AI assistant to rapidly implement the Registration component, Dashboard search filtering, and zero-stock UI validation along with their corresponding test suites.
+
+
+Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>

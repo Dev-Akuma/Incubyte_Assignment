@@ -197,4 +197,45 @@ describe('Dashboard Component', () => {
         expect(localStorage.getItem('token')).toBeNull();
         expect(mockNavigate).toHaveBeenCalledWith('/');
     });
+
+    it('disables sell button when stock is zero', async () => {
+        global.fetch = vi.fn().mockResolvedValueOnce({
+            ok: true,
+            json: () => Promise.resolve([
+                { id: 1, make: 'Honda', model: 'Civic', year: 2020, quantity: 0, category: 'Sedan' }
+            ])
+        });
+
+        render(<Dashboard />);
+
+        await waitFor(() => {
+            expect(screen.getByText(/Honda/i)).toBeInTheDocument();
+        });
+
+        const sellButton = screen.getByRole('button', { name: /sell/i });
+        expect(sellButton).toBeDisabled();
+    });
+
+    it('filters vehicles by search term', async () => {
+        global.fetch = vi.fn().mockResolvedValueOnce({
+            ok: true,
+            json: () => Promise.resolve([
+                { id: 1, make: 'Honda', model: 'Civic', year: 2020, quantity: 5, category: 'Sedan' },
+                { id: 2, make: 'Toyota', model: 'Corolla', year: 2021, quantity: 3, category: 'Compact' }
+            ])
+        });
+
+        render(<Dashboard />);
+
+        await waitFor(() => {
+            expect(screen.getByText(/Honda/i)).toBeInTheDocument();
+            expect(screen.getByText(/Toyota/i)).toBeInTheDocument();
+        });
+
+        const searchInput = screen.getByPlaceholderText(/search inventory/i);
+        fireEvent.change(searchInput, { target: { value: 'Toyota' } });
+
+        expect(screen.getByText(/Toyota/i)).toBeInTheDocument();
+        expect(screen.queryByText(/Honda/i)).not.toBeInTheDocument();
+    });
 });
