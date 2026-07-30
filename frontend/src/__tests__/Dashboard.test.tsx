@@ -99,4 +99,39 @@ describe('Dashboard Component', () => {
         
         getItemSpy.mockRestore();
     });
+
+    it('deletes a vehicle when the delete button is clicked', async () => {
+        global.fetch = vi.fn().mockResolvedValueOnce({
+            ok: true,
+            json: () => Promise.resolve([
+                { id: 1, make: 'Tesla', model: 'Model 3', year: 2023, quantity: 3, category: 'Sedan' }
+            ])
+        });
+
+        render(<Dashboard />);
+
+        await waitFor(() => {
+            expect(screen.getByText(/Tesla/i)).toBeInTheDocument();
+        });
+
+        (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+            ok: true,
+            status: 204
+        });
+
+        const getItemSpy = vi.spyOn(Storage.prototype, 'getItem').mockReturnValue('fake-jwt-token');
+
+        fireEvent.click(screen.getByRole('button', { name: /delete/i }));
+
+        await waitFor(() => {
+            expect(global.fetch).toHaveBeenCalledWith('/api/vehicles/1', expect.objectContaining({
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer fake-jwt-token'
+                }
+            }));
+        });
+        
+        getItemSpy.mockRestore();
+    });
 });

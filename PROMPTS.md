@@ -875,3 +875,20 @@ Please implement the following step-by-step:
    - If `response.ok` is true, call the existing `fetchVehicles()` function to refresh the inventory list.
    - In the JSX where the vehicles are mapped, add a `<button onClick={() => handleRestock(vehicle.id)}>Restock</button>` right next to the Sell button.
 2. Ensure the code satisfies the test requirements perfectly without adding premature optimizations.
+
+# RED : Failing test for deletion
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are now adding the "Delete" functionality to our Dashboard inventory list, completing our core CRUD operations.
+
+CRITICAL CONSTRAINT: Do NOT write the implementation code to make the test pass yet. We are strictly in the "Red" phase of TDD. Your task is to write a FAILING test.
+
+Please do the following step-by-step:
+
+1. **Update the Test (`frontend/src/__tests__/Dashboard.test.tsx`):**
+   - Add a new test called "deletes a vehicle when the delete button is clicked".
+   - Mock `global.fetch` to return an initial list containing one fake vehicle (e.g., id: 1, make: "Tesla", quantity: 3, category: "Sedan").
+   - Render the `<Dashboard />` component.
+   - Use `await waitFor` to ensure the vehicle renders on the screen.
+   - Re-mock `global.fetch` to simulate a successful response (e.g., 200 OK or 204 No Content) for the upcoming delete API call.
+   - Find a button with the text "Delete" inside the rendered vehicle item and use `fireEvent.click` to click it.
+   - Use `await waitFor` to assert that `global.fetch` was called with a `DELETE` method to `/api/vehicles/1`.
+   - Assert that the request included the `Authorization` header.
