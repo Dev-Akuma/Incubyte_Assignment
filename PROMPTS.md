@@ -842,3 +842,20 @@ Please implement the following step-by-step:
    - If `response.ok` is true, call the existing `fetchVehicles()` function to refresh the inventory list so the updated quantity is displayed.
    - In the JSX where the vehicles are mapped, add a `<button onClick={() => handleSell(vehicle.id)}>Sell</button>` inside the list item for each vehicle.
 2. Ensure the code satisfies the test requirements perfectly without adding premature optimizations (like error toasts for failed sales yet).
+
+## RED : Failing test case for restock
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are now adding the "Restock" functionality to our Dashboard inventory list.
+
+CRITICAL CONSTRAINT: Do NOT write the implementation code to make the test pass yet. We are strictly in the "Red" phase of TDD. Your task is to write a FAILING test.
+
+Please do the following step-by-step:
+
+1. **Update the Test (`frontend/src/__tests__/Dashboard.test.tsx`):**
+   - Add a new test called "restocks a vehicle when the restock button is clicked".
+   - Mock `global.fetch` to return an initial list containing one fake vehicle (e.g., id: 1, make: "Ford", quantity: 2, category: "Coupe").
+   - Render the `<Dashboard />` component.
+   - Use `await waitFor` to ensure the vehicle renders on the screen.
+   - Re-mock `global.fetch` to simulate a successful 200 OK response for the upcoming restock API call.
+   - Find a button with the text "Restock" (or "Restock 1") inside the rendered vehicle item and use `fireEvent.click` to click it.
+   - Use `await waitFor` to assert that `global.fetch` was called with a `POST` to `/api/vehicles/1/restock`.
+   - Assert that the request included the `Authorization` header and a JSON body containing `{"quantity": 1}`.

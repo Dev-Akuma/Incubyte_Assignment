@@ -62,4 +62,41 @@ describe('Dashboard Component', () => {
         
         getItemSpy.mockRestore();
     });
+
+    it('restocks a vehicle when the restock button is clicked', async () => {
+        global.fetch = vi.fn().mockResolvedValueOnce({
+            ok: true,
+            json: () => Promise.resolve([
+                { id: 1, make: 'Ford', model: 'Mustang', year: 2022, quantity: 2, category: 'Coupe' }
+            ])
+        });
+
+        render(<Dashboard />);
+
+        await waitFor(() => {
+            expect(screen.getByText(/Ford/i)).toBeInTheDocument();
+        });
+
+        (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+            ok: true,
+            json: () => Promise.resolve({ success: true })
+        });
+
+        const getItemSpy = vi.spyOn(Storage.prototype, 'getItem').mockReturnValue('fake-jwt-token');
+
+        fireEvent.click(screen.getByRole('button', { name: /restock/i }));
+
+        await waitFor(() => {
+            expect(global.fetch).toHaveBeenCalledWith('/api/vehicles/1/restock', expect.objectContaining({
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fake-jwt-token'
+                },
+                body: JSON.stringify({ quantity: 1 })
+            }));
+        });
+        
+        getItemSpy.mockRestore();
+    });
 });
