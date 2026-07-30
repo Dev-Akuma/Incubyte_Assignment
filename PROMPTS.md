@@ -1018,3 +1018,31 @@ Used an AI assistant to document the completed core CRUD features, authenticatio
 
 
 Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
+
+## TASK : Configuring Login screen
+Act as an expert Frontend Developer and UI/UX Designer. The mechanical logic of our React application is complete and fully covered by tests. We are now transitioning to the styling phase using Tailwind CSS.
+
+Please do the following step-by-step:
+
+1. **Install and Configure Tailwind CSS:**
+   - Provide the exact terminal commands to install Tailwind CSS, PostCSS, and Autoprefixer for our Vite + React project (run inside the `frontend` folder).
+   - Provide the terminal command to initialize the Tailwind config (`npx tailwindcss init -p`).
+   - Provide the exact configuration code for `tailwind.config.js` so it scans `./index.html` and `./src/**/*.{js,ts,jsx,tsx}`.
+   - Provide the standard Tailwind `@tailwind` directives to completely overwrite `frontend/src/index.css`.
+2. **Style the Component (`frontend/src/components/Login.tsx`):**
+   - Apply Tailwind utility classes to transform the Login component into a modern layout.
+   - Wrap the component in a full-height, centered flex container with a subtle gray background (e.g., `min-h-screen flex items-center justify-center bg-gray-50`).
+   - Style the form as a white card with a subtle shadow, rounded corners, and padding.
+   - Style the inputs with clear borders, padding, and focus rings (e.g., `focus:ring-blue-500`).
+   - Style the submit button to stand out (e.g., `bg-blue-600 text-white rounded hover:bg-blue-700`).
+   - Style the error message with red text and a light red background.
+   - CRITICAL CONSTRAINT: Do NOT change any of the functional state logic, placeholder text, or `data-testid` attributes. The component must still pass its existing Vitest suite perfectly.
+
+Run the test suite. If the tests are green, stage and commit the changes strictly using the following atomic commit message, maintaining the exact spacing:
+
+TASK: configure tailwind css and apply modern styling to login screen
+
+Used an AI assistant to integrate Tailwind CSS into the Vite build pipeline and applied a responsive, modern card design to the Login component without altering core testable behavior.
+
+
+Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
