@@ -618,3 +618,25 @@ Please implement the following step-by-step:
    - In the `onSubmit` handler, call `e.preventDefault()`.
    - Execute a `fetch` request to the endpoint exactly as expected by the test (e.g., `/api/auth/login` or whatever URL the test asserts), sending the email and password in the body.
 2. Ensure the code satisfies the test requirements perfectly without adding premature optimizations (like error handling or loading spinners yet).
+
+## REFACTOR : 
+Act as an expert Full-Stack Developer. Our login submission test is passing, but we need to perform the "Refactor" step by adding robust error handling and token storage.
+
+Please do the following step-by-step:
+
+1. **Test Suite - API Errors (`frontend/src/__tests__/Login.test.tsx`):**
+   - Add a test case called "displays error message on failed login".
+   - Mock `global.fetch` to return a 401 Unauthorized status with a JSON payload like `{"detail": "Incorrect username or password"}`.
+   - Simulate form submission with bad credentials.
+   - Use `await waitFor` to assert that an error message (e.g., "Incorrect username or password" or a generic "Login failed") is rendered in the document.
+2. **Test Suite - Saving Token (`frontend/src/__tests__/Login.test.tsx`):**
+   - Add a test case called "saves token to localStorage on successful login".
+   - Spy on `Storage.prototype.setItem` (e.g., using `vi.spyOn(Storage.prototype, 'setItem')`).
+   - Mock a successful login response containing a fake token.
+   - Simulate the form submission.
+   - Use `await waitFor` to assert that `localStorage.setItem` was called with the key `'token'` (or whatever key you choose) and the mock token.
+3. **Implementation (`frontend/src/components/Login.tsx`):**
+   - Add a state variable for `error` (e.g., `const [error, setError] = useState('')`).
+   - Conditionally render this error message in the UI (e.g., `<div role="alert">{error}</div>`).
+   - In the `onSubmit` handler, check if `response.ok` is false. If so, parse the error and call `setError()`.
+   - If `response.ok` is true, extract the token from the response and save it using `localStorage.setItem('token', data.access_token)`.

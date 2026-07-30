@@ -38,4 +38,44 @@ describe('Login Component', () => {
             }));
         });
     });
+
+    it('displays error message on failed login', async () => {
+        global.fetch = vi.fn(() =>
+            Promise.resolve({
+                ok: false,
+                status: 401,
+                json: () => Promise.resolve({ detail: 'Incorrect username or password' }),
+            })
+        ) as any;
+
+        render(<Login />);
+        fireEvent.change(screen.getByPlaceholderText('Email'), { target: { value: 'bad@example.com' } });
+        fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'wrong' } });
+        fireEvent.click(screen.getByRole('button', { name: /login/i }));
+
+        await waitFor(() => {
+            expect(screen.getByText('Incorrect username or password')).toBeInTheDocument();
+        });
+    });
+
+    it('saves token to localStorage on successful login', async () => {
+        const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
+        global.fetch = vi.fn(() =>
+            Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve({ access_token: 'fake-token-123' }),
+            })
+        ) as any;
+
+        render(<Login />);
+        fireEvent.change(screen.getByPlaceholderText('Email'), { target: { value: 'test@example.com' } });
+        fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password123' } });
+        fireEvent.click(screen.getByRole('button', { name: /login/i }));
+
+        await waitFor(() => {
+            expect(setItemSpy).toHaveBeenCalledWith('token', 'fake-token-123');
+        });
+        
+        setItemSpy.mockRestore();
+    });
 });
