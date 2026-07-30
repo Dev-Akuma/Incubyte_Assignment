@@ -795,3 +795,16 @@ Please refactor `frontend/src/components/AddVehicleForm.tsx` to fix this:
 2. **Safe Error Parsing:** Ensure that if `!response.ok`, the error state gracefully handles FastAPI's 422 validation array (e.g., checking if `data.detail` is an array and extracting the first message), exactly like we did in the Login component, to prevent React from crashing.
 
 Run the tests to ensure our assertions still pass.
+
+## FIX : missing category discrepancy for required fields
+Act as an expert Full-Stack Developer. We found the cause of our 422 error: the FastAPI backend requires a `category` field for a Vehicle, but our frontend form is missing it.
+
+Please do the following step-by-step:
+
+1. **Update the Test (`frontend/src/__tests__/AddVehicleForm.test.tsx`):**
+   - In the "submits new vehicle data to the API" test, add a `fireEvent.change` to simulate typing "Coupe" into an input with the placeholder "Category".
+   - Update the `waitFor` assertion to ensure the expected JSON body sent to `fetch` includes `"category": "Coupe"`.
+2. **Update the Component (`frontend/src/components/AddVehicleForm.tsx`):**
+   - Add a `category` state variable (defaulting to an empty string).
+   - Add a controlled text `<input>` for the category with `placeholder="Category"`.
+   - Ensure `category` is included in the JSON payload sent to the API.

@@ -10,6 +10,7 @@ export default function AddVehicleForm({ onVehicleAdded }: AddVehicleFormProps) 
   const [year, setYear] = useState('');
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
+  const [category, setCategory] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -28,7 +29,8 @@ export default function AddVehicleForm({ onVehicleAdded }: AddVehicleFormProps) 
           model,
           year: parseInt(year, 10),
           price: parseFloat(price),
-          quantity: parseInt(quantity, 10)
+          quantity: parseInt(quantity, 10),
+          category
         })
       });
 
@@ -46,6 +48,7 @@ export default function AddVehicleForm({ onVehicleAdded }: AddVehicleFormProps) 
         setYear('');
         setPrice('');
         setQuantity('');
+        setCategory('');
         onVehicleAdded();
       }
     } catch (err) {
@@ -85,6 +88,12 @@ export default function AddVehicleForm({ onVehicleAdded }: AddVehicleFormProps) 
         placeholder="Quantity" 
         value={quantity} 
         onChange={(e) => setQuantity(e.target.value)} 
+      />
+      <input 
+        type="text" 
+        placeholder="Category" 
+        value={category} 
+        onChange={(e) => setCategory(e.target.value)} 
       />
       <button type="submit">Add Vehicle</button>
     </form>

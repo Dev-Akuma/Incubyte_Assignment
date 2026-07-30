@@ -23,6 +23,7 @@ describe('AddVehicleForm Component', () => {
         fireEvent.change(screen.getByPlaceholderText('Year'), { target: { value: '2024' } });
         fireEvent.change(screen.getByPlaceholderText('Price'), { target: { value: '25000' } });
         fireEvent.change(screen.getByPlaceholderText('Quantity'), { target: { value: '5' } });
+        fireEvent.change(screen.getByPlaceholderText('Category'), { target: { value: 'Coupe' } });
 
         // Submit form
         fireEvent.click(screen.getByRole('button', { name: /add vehicle/i }));
@@ -35,7 +36,7 @@ describe('AddVehicleForm Component', () => {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-jwt-token'
                 },
-                body: JSON.stringify({ make: 'Honda', model: 'Civic', year: 2024, price: 25000, quantity: 5 })
+                body: JSON.stringify({ make: 'Honda', model: 'Civic', year: 2024, price: 25000, quantity: 5, category: 'Coupe' })
             }));
         });
         
