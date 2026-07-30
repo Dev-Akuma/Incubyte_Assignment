@@ -693,3 +693,20 @@ Please do the following step-by-step:
    - Assert that a loading state or title is present initially.
    - Use `await waitFor` to assert that the text "Honda" and "Toyota" eventually appear in the document, proving the component rendered the fetched data.
 2. Provide the exact Git commit message to stage and commit this failing test, ensuring it includes the mandatory Incubyte `Co-authored-by` trailer. Format it exactly like this:
+
+## GREEN : Implementing Dashboard components
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `Dashboard` component fetching and displaying vehicles.
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Update Component (`frontend/src/components/Dashboard.tsx`):** 
+   - Import `useState` and `useEffect` from React.
+   - Define a state variable `vehicles` (default to an empty array) and a `loading` state (default to `true`).
+   - Add a `useEffect` hook that fetches data from `/api/vehicles`.
+   - In the fetch request, include the `Authorization` header with the token from `localStorage`: `Bearer ${localStorage.getItem('token')}`.
+   - When the fetch resolves, parse the JSON, update the `vehicles` state, and set `loading` to `false`.
+   - In the render, if `loading` is true, return a `<div>Loading...</div>` (or whatever loading text your test asserts).
+   - If not loading, map over the `vehicles` array and render each vehicle's make and model inside a list (`<ul>` and `<li>`) or a simple layout so the test can find the text.
+2. Ensure the component structure matches exactly what the test expects to find (e.g., rendering "Honda" and "Toyota" based on the mocked API response).
