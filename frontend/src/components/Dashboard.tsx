@@ -72,6 +72,22 @@ export default function Dashboard() {
     }
   };
 
+  const handleDelete = async (id: number) => {
+    try {
+      const response = await fetch(`/api/vehicles/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      if (response.ok) {
+        fetchVehicles();
+      }
+    } catch (error) {
+      console.error('Failed to delete vehicle:', error);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -86,6 +102,7 @@ export default function Dashboard() {
             {vehicle.year} {vehicle.make} {vehicle.model} - Qty: {vehicle.quantity}
             <button onClick={() => handleSell(vehicle.id)}>Sell</button>
             <button onClick={() => handleRestock(vehicle.id)}>Restock</button>
+            <button onClick={() => handleDelete(vehicle.id)}>Delete</button>
           </li>
         ))}
       </ul>
