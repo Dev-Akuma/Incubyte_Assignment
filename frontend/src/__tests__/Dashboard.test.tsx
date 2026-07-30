@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Dashboard from '../components/Dashboard';
 
 describe('Dashboard Component', () => {
@@ -24,5 +24,42 @@ describe('Dashboard Component', () => {
             expect(screen.getByText(/Honda/i)).toBeInTheDocument();
             expect(screen.getByText(/Toyota/i)).toBeInTheDocument();
         });
+    });
+
+    it('sells a vehicle when the sell button is clicked', async () => {
+        global.fetch = vi.fn().mockResolvedValueOnce({
+            ok: true,
+            json: () => Promise.resolve([
+                { id: 1, make: 'Honda', model: 'Civic', year: 2020, quantity: 5, category: 'Sedan' }
+            ])
+        });
+
+        render(<Dashboard />);
+
+        await waitFor(() => {
+            expect(screen.getByText(/Honda/i)).toBeInTheDocument();
+        });
+
+        (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+            ok: true,
+            json: () => Promise.resolve({ success: true })
+        });
+
+        const getItemSpy = vi.spyOn(Storage.prototype, 'getItem').mockReturnValue('fake-jwt-token');
+
+        fireEvent.click(screen.getByRole('button', { name: /sell/i }));
+
+        await waitFor(() => {
+            expect(global.fetch).toHaveBeenCalledWith('/api/vehicles/1/sale', expect.objectContaining({
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fake-jwt-token'
+                },
+                body: JSON.stringify({ quantity: 1 })
+            }));
+        });
+        
+        getItemSpy.mockRestore();
     });
 });

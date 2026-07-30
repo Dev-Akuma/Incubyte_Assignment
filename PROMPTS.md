@@ -808,3 +808,21 @@ Please do the following step-by-step:
    - Add a `category` state variable (defaulting to an empty string).
    - Add a controlled text `<input>` for the category with `placeholder="Category"`.
    - Ensure `category` is included in the JSON payload sent to the API.
+
+## RED : Stock Sell Testcase
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We are now adding the "Sell" functionality to our Dashboard inventory list.
+
+CRITICAL CONSTRAINT: Do NOT write the implementation code to make the test pass yet. We are strictly in the "Red" phase of TDD. Your task is to write a FAILING test.
+
+Please do the following step-by-step:
+
+1. **Update the Test (`frontend/src/__tests__/Dashboard.test.tsx`):**
+   - Import `fireEvent` if it isn't already imported.
+   - Add a new test called "sells a vehicle when the sell button is clicked".
+   - Mock `global.fetch` to return an initial list containing one fake vehicle (e.g., id: 1, make: "Honda", quantity: 5, category: "Sedan").
+   - Render the `<Dashboard />` component.
+   - Use `await waitFor` to ensure the vehicle renders on the screen.
+   - Re-mock `global.fetch` (using `mockResolvedValueOnce` or similar) to simulate a successful 200 OK response for the upcoming sale API call.
+   - Find a button with the text "Sell" (or "Sell 1") inside the rendered vehicle item and use `fireEvent.click` to click it.
+   - Use `await waitFor` to assert that `global.fetch` was called with a `POST` to `/api/vehicles/1/sale`.
+   - Assert that the request included the `Authorization` header and a JSON body containing `{"quantity": 1}`.
