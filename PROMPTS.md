@@ -556,3 +556,16 @@ Please do the following step-by-step:
    - Assert that an input with the placeholder "Password" exists.
    - Assert that a button with the text "Login" exists.
 
+## GREEN : Implementing Login component
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `Login` component UI.
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Update Component (`frontend/src/components/Login.tsx`):** 
+   - Return a basic form structure.
+   - Add an `<input>` with `type="email"` and `placeholder="Email"`.
+   - Add an `<input>` with `type="password"` and `placeholder="Password"`.
+   - Add a `<button>` with `type="submit"` and the text "Login".
+2. **Ensure imports are correct:** Make sure you import React if necessary, though in newer Vite setups it is optional.
