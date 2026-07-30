@@ -1,10 +1,20 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import Login from '../components/Login';
+
+const mockNavigate = vi.fn();
+vi.mock('react-router-dom', async () => {
+    const actual = await vi.importActual('react-router-dom');
+    return {
+        ...actual as any,
+        useNavigate: () => mockNavigate,
+    };
+});
 
 describe('Login Component', () => {
     it('renders login form with username and password fields', () => {
-        render(<Login />);
+        render(<MemoryRouter><Login /></MemoryRouter>);
 
         // Assert username input exists
         expect(screen.getByPlaceholderText('Username')).toBeInTheDocument();
@@ -24,7 +34,7 @@ describe('Login Component', () => {
             })
         ) as any;
 
-        render(<Login />);
+        render(<MemoryRouter><Login /></MemoryRouter>);
 
         fireEvent.change(screen.getByPlaceholderText('Username'), { target: { value: 'testuser' } });
         fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password123' } });
@@ -47,7 +57,7 @@ describe('Login Component', () => {
             })
         ) as any;
 
-        render(<Login />);
+        render(<MemoryRouter><Login /></MemoryRouter>);
         fireEvent.change(screen.getByPlaceholderText('Username'), { target: { value: 'baduser' } });
         fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'wrong' } });
         fireEvent.click(screen.getByRole('button', { name: /login/i }));
@@ -66,13 +76,14 @@ describe('Login Component', () => {
             })
         ) as any;
 
-        render(<Login />);
+        render(<MemoryRouter><Login /></MemoryRouter>);
         fireEvent.change(screen.getByPlaceholderText('Username'), { target: { value: 'testuser' } });
         fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password123' } });
         fireEvent.click(screen.getByRole('button', { name: /login/i }));
 
         await waitFor(() => {
             expect(setItemSpy).toHaveBeenCalledWith('token', 'fake-token-123');
+            expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
         });
         
         setItemSpy.mockRestore();

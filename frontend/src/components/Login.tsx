@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [username, setUsername] = useState('');
+  const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -32,6 +34,7 @@ export default function Login() {
         }
       } else {
         localStorage.setItem('token', data.access_token);
+        navigate('/dashboard');
       }
     } catch (err) {
       setError('An error occurred during login');

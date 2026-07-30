@@ -710,3 +710,24 @@ Please implement the following step-by-step:
    - In the render, if `loading` is true, return a `<div>Loading...</div>` (or whatever loading text your test asserts).
    - If not loading, map over the `vehicles` array and render each vehicle's make and model inside a list (`<ul>` and `<li>`) or a simple layout so the test can find the text.
 2. Ensure the component structure matches exactly what the test expects to find (e.g., rendering "Honda" and "Toyota" based on the mocked API response).
+
+## REFACTOR : integrating react-router to connect login to dashboard
+Act as an expert Full-Stack Developer. Our Dashboard is passing its isolation tests. We now need to perform a "Refactor" to integrate client-side routing using `react-router-dom`, connecting the Login and Dashboard components.
+
+Please do the following step-by-step:
+
+1. **Install Dependency (Instructions):** Provide the terminal command to install `react-router-dom`.
+2. **Update Tests for Routing (`frontend/src/__tests__/Login.test.tsx`):**
+   - Mock `react-router-dom` to spy on `useNavigate` (e.g., `const mockNavigate = vi.fn(); vi.mock('react-router-dom', () => ({ ...vi.importActual('react-router-dom'), useNavigate: () => mockNavigate }));`).
+   - Update the "saves token to localStorage on successful login" test to also assert that `mockNavigate('/dashboard')` was called after a successful login.
+   - Wrap the `<Login />` component in a `<MemoryRouter>` inside the `render` calls for all tests, so React Router doesn't throw context errors.
+3. **Refactor Login Component (`frontend/src/components/Login.tsx`):**
+   - Import `useNavigate` from `react-router-dom`.
+   - Initialize it (`const navigate = useNavigate();`).
+   - Inside the `onSubmit` handler, right after successfully saving the token to `localStorage`, call `navigate('/dashboard')`.
+4. **Refactor App Shell (`frontend/src/App.tsx`):**
+   - Import `BrowserRouter`, `Routes`, and `Route` from `react-router-dom`.
+   - Import both the `Login` and `Dashboard` components.
+   - Set up the routing structure:
+     - Route `/` renders `<Login />`
+     - Route `/dashboard` renders `<Dashboard />`
