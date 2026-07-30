@@ -965,3 +965,28 @@ Used an AI assistant to write a test asserting that clicking the Logout button r
 Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
 
 Stop after providing the test code and the commit message. Do not implement the Logout button yet.
+
+## GREEN : implementing the logout function 
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the Logout functionality on the Dashboard.
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Update Component (`frontend/src/components/Dashboard.tsx`):** 
+   - Import `useNavigate` from `react-router-dom` (if not already imported).
+   - Initialize `const navigate = useNavigate();` inside the component.
+   - Create a `handleLogout` function.
+   - Inside `handleLogout`, call `localStorage.removeItem('token')`.
+   - After removing the token, call `navigate('/')` to send the user back to the login screen.
+   - In the JSX, add a `<button onClick={handleLogout}>Logout</button>` near the top of the Dashboard.
+2. Ensure the code satisfies the test requirements perfectly.
+
+Run the tests. Once it is green, stage and commit the changes strictly using the following atomic commit message, maintaining the exact spacing:
+
+GREEN: implement user logout functionality
+
+Used an AI assistant to add a Logout button to the Dashboard that clears the authentication token from localStorage and redirects to the login screen.
+
+
+Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AddVehicleForm from './AddVehicleForm';
 
 interface Vehicle {
@@ -10,6 +11,7 @@ interface Vehicle {
 }
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -94,6 +96,11 @@ export default function Dashboard() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -101,6 +108,7 @@ export default function Dashboard() {
   return (
     <div>
       <h2>Dashboard</h2>
+      <button onClick={handleLogout}>Logout</button>
       {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
       <AddVehicleForm onVehicleAdded={fetchVehicles} />
       <ul>
