@@ -859,3 +859,19 @@ Please do the following step-by-step:
    - Find a button with the text "Restock" (or "Restock 1") inside the rendered vehicle item and use `fireEvent.click` to click it.
    - Use `await waitFor` to assert that `global.fetch` was called with a `POST` to `/api/vehicles/1/restock`.
    - Assert that the request included the `Authorization` header and a JSON body containing `{"quantity": 1}`.
+
+## GREEN : Implementing Restock
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the Restock vehicle functionality on the Dashboard.
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Update Component (`frontend/src/components/Dashboard.tsx`):** 
+   - Create an async function `handleRestock(id: number)`.
+   - Inside `handleRestock`, execute a `fetch` request to `/api/vehicles/${id}/restock` with a `POST` method.
+   - Include the `Content-Type: application/json` header and the `Authorization: Bearer ${localStorage.getItem('token')}` header.
+   - Send `JSON.stringify({ quantity: 1 })` as the request body.
+   - If `response.ok` is true, call the existing `fetchVehicles()` function to refresh the inventory list.
+   - In the JSX where the vehicles are mapped, add a `<button onClick={() => handleRestock(vehicle.id)}>Restock</button>` right next to the Sell button.
+2. Ensure the code satisfies the test requirements perfectly without adding premature optimizations.

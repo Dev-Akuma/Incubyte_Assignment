@@ -54,6 +54,24 @@ export default function Dashboard() {
     }
   };
 
+  const handleRestock = async (id: number) => {
+    try {
+      const response = await fetch(`/api/vehicles/${id}/restock`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ quantity: 1 })
+      });
+      if (response.ok) {
+        fetchVehicles();
+      }
+    } catch (error) {
+      console.error('Failed to restock vehicle:', error);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -67,6 +85,7 @@ export default function Dashboard() {
           <li key={vehicle.id}>
             {vehicle.year} {vehicle.make} {vehicle.model} - Qty: {vehicle.quantity}
             <button onClick={() => handleSell(vehicle.id)}>Sell</button>
+            <button onClick={() => handleRestock(vehicle.id)}>Restock</button>
           </li>
         ))}
       </ul>
