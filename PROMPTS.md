@@ -569,3 +569,16 @@ Please implement the following step-by-step:
    - Add an `<input>` with `type="password"` and `placeholder="Password"`.
    - Add a `<button>` with `type="submit"` and the text "Login".
 2. **Ensure imports are correct:** Make sure you import React if necessary, though in newer Vite setups it is optional.
+
+## REFACTOR : Hooking up the components
+Act as an expert Full-Stack Developer. Our Login component UI is passing its tests, but our main application is still showing the default Vite boilerplate.
+
+Your task is to integrate the new component into the app shell.
+
+Please do the following step-by-step:
+
+1. **Clean up `src/App.tsx`:** 
+   - Remove the default Vite boilerplate (logos, counter state, and Vite-specific text).
+   - Import the `Login` component.
+   - Render the `<Login />` component inside the main App return statement.
+2. **Clean up CSS (Optional but recommended):** Clear out the default styles in `src/App.css` so they don't interfere with our layout.
