@@ -556,3 +556,45 @@ Please do the following step-by-step:
    - Assert that an input with the placeholder "Password" exists.
    - Assert that a button with the text "Login" exists.
 
+## GREEN : Implementing Login component
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `Login` component UI.
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Update Component (`frontend/src/components/Login.tsx`):** 
+   - Return a basic form structure.
+   - Add an `<input>` with `type="email"` and `placeholder="Email"`.
+   - Add an `<input>` with `type="password"` and `placeholder="Password"`.
+   - Add a `<button>` with `type="submit"` and the text "Login".
+2. **Ensure imports are correct:** Make sure you import React if necessary, though in newer Vite setups it is optional.
+
+## REFACTOR : Hooking up the components
+Act as an expert Full-Stack Developer. Our Login component UI is passing its tests, but our main application is still showing the default Vite boilerplate.
+
+Your task is to integrate the new component into the app shell.
+
+Please do the following step-by-step:
+
+1. **Clean up `src/App.tsx`:** 
+   - Remove the default Vite boilerplate (logos, counter state, and Vite-specific text).
+   - Import the `Login` component.
+   - Render the `<Login />` component inside the main App return statement.
+2. **Clean up CSS (Optional but recommended):** Clear out the default styles in `src/App.css` so they don't interfere with our layout.
+
+## RED : Adding failing test case for login form
+Act as an expert Full-Stack Developer strictly following Test-Driven Development (TDD). We have our basic Login UI, and now we need to add the authentication functionality.
+
+CRITICAL CONSTRAINT: Do NOT write the implementation code for the API call or state management yet. We are strictly in the "Red" phase of TDD. Your task is to write a FAILING test.
+
+Please do the following step-by-step:
+
+1. **Write the Failing Test (`frontend/src/__tests__/Login.test.tsx`):**
+   - Import `fireEvent` and `waitFor` from `@testing-library/react`.
+   - Add a new test case: "submits credentials to the API on button click".
+   - In the test, mock the global `fetch` function (e.g., `global.fetch = vi.fn()`) to return a fake successful response with a mock token.
+   - Render the `<Login />` component.
+   - Use `fireEvent.change` to simulate typing an email into the Email input and a password into the Password input.
+   - Use `fireEvent.click` to click the Login button.
+   - Use `waitFor` to assert that `global.fetch` was called exactly once, with the correct URL (e.g., `/api/auth/login`) and a `POST` method containing the email and password.
