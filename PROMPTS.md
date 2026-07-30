@@ -1155,3 +1155,32 @@ Used an AI assistant to execute test suites, capture coverage and results into r
 
 
 Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>
+
+## TASK : Updating UI to reflect retro look
+Act as an expert Frontend Developer and UI/UX Designer specializing in retro and classic user interfaces. We want to completely transform our application's visual style into a charming, authentic retro/vintage computer terminal or classic 90s OS aesthetic, while keeping all core functionality, test IDs, and form elements intact.
+
+Please update the styling across `frontend/src/index.css`, `frontend/src/components/Login.tsx`, `frontend/src/components/Register.tsx`, `frontend/src/components/Dashboard.tsx`, and `frontend/src/components/AddVehicleForm.tsx` to implement the following design language:
+
+1. **Retro Aesthetic (`index.css` & Global Layout):**
+   - Use a classic desktop background color (e.g., retro win95 teal `#008080`, warm beige `#f4f1ea`, or dark CRT charcoal `#121212` with amber/green text accents). Let's go with a classic retro workstation beige/gray theme (`bg-[#c0c0c0]` or `bg-[#e0e0e0]`).
+   - Use system-style fonts (monospace like `Courier New`, or classic sans-serif like `Tahoma`, `MS Sans Serif`).
+   - Replace soft shadows with hard, classic borders (`border-2 border-t-white border-l-white border-b-black border-r-black` for that classic raised window look, or crisp 2px solid black borders for a brutalist/retro comic look).
+
+2. **Component Overhauls (Login, Register, Dashboard, Forms):**
+   - **Windows / Cards:** Style containers like classic desktop application windows with a title bar at the top (e.g., a dark blue or dark gray bar with a title and a retro "X" close button cosmetic).
+   - **Inputs:** Hard-edged, inset-bordered inputs (`border-2 border-inset border-gray-600 bg-white p-2 text-black outline-none`).
+   - **Buttons:** Classic chunky buttons with active click states (raised borders that look like they depress when clicked: `active:border-t-black active:border-l-black active:border-b-white active:border-r-white`). Give action buttons distinct retro colors (e.g., classic crimson for delete, forest green for restock, navy blue for primary actions).
+   - **Tables / Inventory Grid:** Structured grid lines, neat rows, and a clean retro tabular layout.
+
+3. **CRITICAL CONSTRAINTS:**
+   - Do NOT alter any `data-testid`, state variables, form names, placeholders, or functional handlers (`handleSell`, `handleRestock`, `handleDelete`, `handleLogout`, etc.). 
+   - The test suite must remain 100% green.
+
+Once applied and tested, stage and commit the changes strictly using this message:
+
+TASK: overhaul frontend UI with a charming retro-classic aesthetic
+
+Used an AI assistant to apply a nostalgic retro operating system / vintage workstation styling to the entire frontend interface using custom Tailwind utility classes, preserving all testable behaviors.
+
+
+Co-authored-by: Gemini 3.1 Pro <AI@users.noreply.github.com>

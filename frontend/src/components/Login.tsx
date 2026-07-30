@@ -42,40 +42,63 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#008080]">
-      <form onSubmit={handleSubmit} className="bg-[#c0c0c0] p-1 border-2 border-t-white border-l-white border-b-black border-r-black w-full max-w-sm flex flex-col">
-        <div className="bg-[#000080] text-white font-bold px-2 py-1 mb-4 flex justify-between items-center">
-          <span>Login.exe</span>
-          <div className="bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-black border-r-black text-black px-1 text-xs cursor-default font-bold">X</div>
+    <div className="min-h-screen flex items-center justify-center bg-[#0d0f14]">
+      <div className="login-wrapper">
+        <div className="login-card">
+          <div className="glow-blob blob-1"></div>
+          <div className="glow-blob blob-2"></div>
+          <div className="dark-overlay"></div>
+
+          <div className="view-container">
+            <div className="form-view">
+              <div className="auth-header">
+                <div className="decorative-dot"></div>
+                <div className="auth-title">Welcome Back</div>
+                <p className="auth-subtitle">Please enter your details to sign in.</p>
+              </div>
+
+              {error && (
+                <div role="alert" className="mb-4 p-3 bg-[rgba(220,38,38,0.1)] border border-red-500 text-red-500 rounded-lg text-sm text-center relative z-20">
+                  {error}
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="relative z-20">
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="input-field"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="input-group">
+                  <input
+                    type="password"
+                    className="input-field"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <a href="#" className="forgot-link">Forgot password?</a>
+
+                <button type="submit" className="btn-submit">Login</button>
+              </form>
+
+              <div className="signup-prompt relative z-20">
+                Don't have an account?
+                <Link to="/register" className="toggle-link">Sign up</Link>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="px-4 pb-4">
-          {error && <div role="alert" className="mb-4 p-2 bg-red-600 text-white border-2 border-t-gray-600 border-l-gray-600 border-b-white border-r-white text-sm font-bold">{error}</div>}
-          <div className="mb-4">
-            <input 
-              type="text" 
-              placeholder="Username" 
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-2 py-1 border-2 border-t-gray-600 border-l-gray-600 border-b-white border-r-white bg-white text-black outline-none"
-            />
-          </div>
-          <div className="mb-6">
-            <input 
-              type="password" 
-              placeholder="Password" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-2 py-1 border-2 border-t-gray-600 border-l-gray-600 border-b-white border-r-white bg-white text-black outline-none"
-            />
-          </div>
-          <button type="submit" className="w-full bg-[#c0c0c0] text-black font-bold py-1 px-4 border-2 border-t-white border-l-white border-b-black border-r-black active:border-t-black active:border-l-black active:border-b-white active:border-r-white mb-4">
-            Login
-          </button>
-          <div className="text-center text-sm text-black">
-            Need an account? <Link to="/register" className="text-blue-800 hover:underline">Register</Link>
-          </div>
-        </div>
-      </form>
+      </div>
     </div>
   );
 }
