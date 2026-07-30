@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -10,18 +10,26 @@ export default function Login() {
     setError('');
     
     try {
+      const formData = new URLSearchParams();
+      formData.append('username', username);
+      formData.append('password', password);
+
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({ email, password }),
+        body: formData,
       });
       
       const data = await response.json();
       
       if (!response.ok) {
-        setError(data.detail || 'Login failed');
+        if (Array.isArray(data.detail)) {
+          setError(data.detail.map((err: any) => err.msg).join(', '));
+        } else {
+          setError(data.detail || 'Login failed');
+        }
       } else {
         localStorage.setItem('token', data.access_token);
       }
@@ -34,10 +42,10 @@ export default function Login() {
     <form onSubmit={handleSubmit}>
       {error && <div role="alert">{error}</div>}
       <input 
-        type="email" 
-        placeholder="Email" 
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        type="text" 
+        placeholder="Username" 
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
       />
       <input 
         type="password" 

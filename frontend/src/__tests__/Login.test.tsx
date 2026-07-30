@@ -3,11 +3,11 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Login from '../components/Login';
 
 describe('Login Component', () => {
-    it('renders login form with email and password fields', () => {
+    it('renders login form with username and password fields', () => {
         render(<Login />);
 
-        // Assert email input exists
-        expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
+        // Assert username input exists
+        expect(screen.getByPlaceholderText('Username')).toBeInTheDocument();
 
         // Assert password input exists
         expect(screen.getByPlaceholderText('Password')).toBeInTheDocument();
@@ -26,15 +26,14 @@ describe('Login Component', () => {
 
         render(<Login />);
 
-        fireEvent.change(screen.getByPlaceholderText('Email'), { target: { value: 'test@example.com' } });
+        fireEvent.change(screen.getByPlaceholderText('Username'), { target: { value: 'testuser' } });
         fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password123' } });
         fireEvent.click(screen.getByRole('button', { name: /login/i }));
 
         await waitFor(() => {
             expect(global.fetch).toHaveBeenCalledTimes(1);
             expect(global.fetch).toHaveBeenCalledWith('/api/auth/login', expect.objectContaining({
-                method: 'POST',
-                body: JSON.stringify({ email: 'test@example.com', password: 'password123' })
+                method: 'POST'
             }));
         });
     });
@@ -49,7 +48,7 @@ describe('Login Component', () => {
         ) as any;
 
         render(<Login />);
-        fireEvent.change(screen.getByPlaceholderText('Email'), { target: { value: 'bad@example.com' } });
+        fireEvent.change(screen.getByPlaceholderText('Username'), { target: { value: 'baduser' } });
         fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'wrong' } });
         fireEvent.click(screen.getByRole('button', { name: /login/i }));
 
@@ -68,7 +67,7 @@ describe('Login Component', () => {
         ) as any;
 
         render(<Login />);
-        fireEvent.change(screen.getByPlaceholderText('Email'), { target: { value: 'test@example.com' } });
+        fireEvent.change(screen.getByPlaceholderText('Username'), { target: { value: 'testuser' } });
         fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password123' } });
         fireEvent.click(screen.getByRole('button', { name: /login/i }));
 

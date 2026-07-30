@@ -650,3 +650,29 @@ Please provide the exact updates needed for `frontend/vite.config.ts` to set up 
 
 Once you have provided the updated configuration, provide the exact Git commit message to stage and commit this fix, ensuring it includes the mandatory Incubyte `Co-authored-by` trailer. Format it exactly like this:
 
+## FIX : type difference addressing
+Act as an expert Full-Stack Developer. We need to fix a critical bug in our Login component before moving on. 
+
+When attempting to log in, we received a 422 Unprocessable Content error from FastAPI, which resulted in a React crash: "Objects are not valid as a React child (found: object with keys {type, loc, msg, input})".
+
+Please refactor `frontend/src/components/Login.tsx` to fix this:
+
+1. **Fix the Request Format:** FastAPI's `OAuth2PasswordRequestForm` requires `application/x-www-form-urlencoded`. Update the `fetch` call in the `onSubmit` handler to send the data using `URLSearchParams`. Map the `email` state variable to the `username` key expected by FastAPI.
+   Example:
+   ```javascript
+   const formData = new URLSearchParams();
+   formData.append('username', email);
+   formData.append('password', password);
+
+## FIX : fixing username and email input fields
+Act as an expert Full-Stack Developer. Our backend authentication expects a `username` for login, but our React frontend is currently asking for an `email`. We need to align the frontend with the backend.
+
+Please do the following step-by-step:
+
+1. **Update the Test (`frontend/src/__tests__/Login.test.tsx`):**
+   - Change the assertion that looks for the "Email" placeholder to look for a "Username" placeholder.
+2. **Update the Component (`frontend/src/components/Login.tsx`):**
+   - Rename the `email` state variable to `username`.
+   - Change the input field's `type` from "email" to "text".
+   - Change the input field's `placeholder` from "Email" to "Username".
+   - Ensure the `URLSearchParams` appends `username` properly using the updated state variable.
