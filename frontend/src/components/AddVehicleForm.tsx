@@ -57,58 +57,63 @@ export default function AddVehicleForm({ onVehicleAdded }: AddVehicleFormProps) 
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 mb-8">
-      <h2 className="text-xl font-semibold mb-4 text-gray-800">Add New Vehicle</h2>
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {error && <div role="alert" className="col-span-1 md:col-span-2 mb-4 p-3 bg-red-100 text-red-700 rounded text-sm">{error}</div>}
-        <input 
-          type="text" 
-          placeholder="Make" 
-          value={make} 
-          onChange={(e) => setMake(e.target.value)} 
-          className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input 
-          type="text" 
-          placeholder="Model" 
-          value={model} 
-          onChange={(e) => setModel(e.target.value)} 
-          className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input 
-          type="number" 
-          placeholder="Year" 
-          value={year} 
-          onChange={(e) => setYear(e.target.value)} 
-          className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input 
-          type="number" 
-          placeholder="Price" 
-          value={price} 
-          onChange={(e) => setPrice(e.target.value)} 
-          className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input 
-          type="number" 
-          placeholder="Quantity" 
-          value={quantity} 
-          onChange={(e) => setQuantity(e.target.value)} 
-          className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input 
-          type="text" 
-          placeholder="Category" 
-          value={category} 
-          onChange={(e) => setCategory(e.target.value)} 
-          className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <div className="col-span-1 md:col-span-2 mt-2">
-          <button type="submit" className="w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition duration-200">
-            Add Vehicle
-          </button>
-        </div>
-      </form>
+    <div className="bg-[#c0c0c0] p-1 border-2 border-t-white border-l-white border-b-black border-r-black mb-8 flex flex-col">
+      <div className="bg-[#000080] text-white font-bold px-2 py-1 mb-4 flex justify-between items-center">
+        <span>Add_Vehicle.exe</span>
+        <div className="bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-black border-r-black text-black px-1 text-xs cursor-default font-bold">X</div>
+      </div>
+      <div className="px-4 pb-4">
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {error && <div role="alert" className="col-span-1 md:col-span-2 mb-4 p-2 bg-red-600 text-white border-2 border-t-gray-600 border-l-gray-600 border-b-white border-r-white text-sm font-bold">{error}</div>}
+          <input 
+            type="text" 
+            placeholder="Make" 
+            value={make} 
+            onChange={(e) => setMake(e.target.value)} 
+            className="w-full px-2 py-1 border-2 border-t-gray-600 border-l-gray-600 border-b-white border-r-white bg-white text-black outline-none"
+          />
+          <input 
+            type="text" 
+            placeholder="Model" 
+            value={model} 
+            onChange={(e) => setModel(e.target.value)} 
+            className="w-full px-2 py-1 border-2 border-t-gray-600 border-l-gray-600 border-b-white border-r-white bg-white text-black outline-none"
+          />
+          <input 
+            type="number" 
+            placeholder="Year" 
+            value={year} 
+            onChange={(e) => setYear(e.target.value)} 
+            className="w-full px-2 py-1 border-2 border-t-gray-600 border-l-gray-600 border-b-white border-r-white bg-white text-black outline-none"
+          />
+          <input 
+            type="number" 
+            placeholder="Price" 
+            value={price} 
+            onChange={(e) => setPrice(e.target.value)} 
+            className="w-full px-2 py-1 border-2 border-t-gray-600 border-l-gray-600 border-b-white border-r-white bg-white text-black outline-none"
+          />
+          <input 
+            type="number" 
+            placeholder="Quantity" 
+            value={quantity} 
+            onChange={(e) => setQuantity(e.target.value)} 
+            className="w-full px-2 py-1 border-2 border-t-gray-600 border-l-gray-600 border-b-white border-r-white bg-white text-black outline-none"
+          />
+          <input 
+            type="text" 
+            placeholder="Category" 
+            value={category} 
+            onChange={(e) => setCategory(e.target.value)} 
+            className="w-full px-2 py-1 border-2 border-t-gray-600 border-l-gray-600 border-b-white border-r-white bg-white text-black outline-none"
+          />
+          <div className="col-span-1 md:col-span-2 mt-2">
+            <button type="submit" className="w-full bg-[#c0c0c0] text-black font-bold py-1 px-4 border-2 border-t-white border-l-white border-b-black border-r-black active:border-t-black active:border-l-black active:border-b-white active:border-r-white text-[#000080]">
+              Add Vehicle
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
