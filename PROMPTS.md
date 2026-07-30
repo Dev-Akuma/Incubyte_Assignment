@@ -748,4 +748,22 @@ Please do the following step-by-step:
    - Use `fireEvent.change` to fill out inputs for Make (e.g., "Honda"), Model (e.g., "Civic"), Year (e.g., "2024"), Price (e.g., "25000"), and Quantity (e.g., "5"). 
    - Use `fireEvent.click` to click an "Add Vehicle" submit button.
    - Use `await waitFor` to assert that `global.fetch` was called exactly once with a `POST` to `/api/vehicles`, containing the correct headers (including Authorization) and the JSON body with the car details.
-2. Provide the exact Git commit message to stage and commit this failing test, ensuring it includes the mandatory Incubyte `Co-authored-by` trailer. Format it exactly like this:
+
+## GREEN : Implementing the Vehicle Form
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the `AddVehicleForm` component submission.
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Update Component (`frontend/src/components/AddVehicleForm.tsx`):** 
+   - Import `useState` from React.
+   - Add state variables for `make`, `model`, `year` (number), `price` (number), and `quantity` (number).
+   - Create a `<form>` element with an `onSubmit` handler.
+   - Add controlled `<input>` fields for each piece of state, ensuring you map the appropriate `placeholder` attributes (e.g., "Make", "Model", "Year", "Price", "Quantity") or accessible labels so the test can find them.
+   - Add a `<button type="submit">` (e.g., "Add Vehicle").
+   - In the `onSubmit` handler, call `e.preventDefault()`.
+   - Execute a `fetch` request to `/api/vehicles` with a `POST` method.
+   - Include the `Content-Type: application/json` header and the `Authorization: Bearer ${localStorage.getItem('token')}` header.
+   - Send the state variables in the request body as a JSON string.
+2. Ensure the code satisfies the test requirements perfectly without adding premature optimizations (like success messages or form clearing yet).
