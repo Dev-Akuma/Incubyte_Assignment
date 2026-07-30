@@ -6,6 +6,7 @@ interface Vehicle {
   make: string;
   model: string;
   year: number;
+  quantity: number;
 }
 
 export default function Dashboard() {
@@ -35,6 +36,24 @@ export default function Dashboard() {
     fetchVehicles();
   }, []);
 
+  const handleSell = async (id: number) => {
+    try {
+      const response = await fetch(`/api/vehicles/${id}/sale`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ quantity: 1 })
+      });
+      if (response.ok) {
+        fetchVehicles();
+      }
+    } catch (error) {
+      console.error('Failed to sell vehicle:', error);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -46,7 +65,8 @@ export default function Dashboard() {
       <ul>
         {vehicles.map((vehicle) => (
           <li key={vehicle.id}>
-            {vehicle.year} {vehicle.make} {vehicle.model}
+            {vehicle.year} {vehicle.make} {vehicle.model} - Qty: {vehicle.quantity}
+            <button onClick={() => handleSell(vehicle.id)}>Sell</button>
           </li>
         ))}
       </ul>

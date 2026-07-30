@@ -826,3 +826,19 @@ Please do the following step-by-step:
    - Find a button with the text "Sell" (or "Sell 1") inside the rendered vehicle item and use `fireEvent.click` to click it.
    - Use `await waitFor` to assert that `global.fetch` was called with a `POST` to `/api/vehicles/1/sale`.
    - Assert that the request included the `Authorization` header and a JSON body containing `{"quantity": 1}`.
+
+## GREEN : Implementing Sell Feature for Vehicles
+Act as an expert Full-Stack Developer following strict TDD. We currently have a failing test (Red state) for the Sell vehicle functionality on the Dashboard.
+
+Your task is to write the minimum implementation code necessary to make this test pass (Green state). 
+
+Please implement the following step-by-step:
+
+1. **Update Component (`frontend/src/components/Dashboard.tsx`):** 
+   - Create an async function `handleSell(id: number)`.
+   - Inside `handleSell`, execute a `fetch` request to `/api/vehicles/${id}/sale` with a `POST` method.
+   - Include the `Content-Type: application/json` header and the `Authorization: Bearer ${localStorage.getItem('token')}` header.
+   - Send `JSON.stringify({ quantity: 1 })` as the request body.
+   - If `response.ok` is true, call the existing `fetchVehicles()` function to refresh the inventory list so the updated quantity is displayed.
+   - In the JSX where the vehicles are mapped, add a `<button onClick={() => handleSell(vehicle.id)}>Sell</button>` inside the list item for each vehicle.
+2. Ensure the code satisfies the test requirements perfectly without adding premature optimizations (like error toasts for failed sales yet).
