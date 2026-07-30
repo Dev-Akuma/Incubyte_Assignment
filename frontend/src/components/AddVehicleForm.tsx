@@ -1,33 +1,61 @@
 import { useState } from 'react';
 
-export default function AddVehicleForm() {
+interface AddVehicleFormProps {
+  onVehicleAdded: () => void;
+}
+
+export default function AddVehicleForm({ onVehicleAdded }: AddVehicleFormProps) {
   const [make, setMake] = useState('');
   const [model, setModel] = useState('');
   const [year, setYear] = useState('');
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
 
-    fetch('/api/vehicles', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      },
-      body: JSON.stringify({
-        make,
-        model,
-        year: Number(year),
-        price: Number(price),
-        quantity: Number(quantity)
-      })
-    });
+    try {
+      const response = await fetch('/api/vehicles', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          make,
+          model,
+          year: Number(year),
+          price: Number(price),
+          quantity: Number(quantity)
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (Array.isArray(data.detail)) {
+          setError(data.detail.map((err: any) => err.msg).join(', '));
+        } else {
+          setError(data.detail || 'Failed to add vehicle');
+        }
+      } else {
+        setMake('');
+        setModel('');
+        setYear('');
+        setPrice('');
+        setQuantity('');
+        onVehicleAdded();
+      }
+    } catch (err) {
+      setError('An error occurred while adding the vehicle');
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      {error && <div role="alert">{error}</div>}
       <input 
         type="text" 
         placeholder="Make" 

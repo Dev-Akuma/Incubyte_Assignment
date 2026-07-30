@@ -767,3 +767,21 @@ Please implement the following step-by-step:
    - Include the `Content-Type: application/json` header and the `Authorization: Bearer ${localStorage.getItem('token')}` header.
    - Send the state variables in the request body as a JSON string.
 2. Ensure the code satisfies the test requirements perfectly without adding premature optimizations (like success messages or form clearing yet).
+
+## REFACTOR : add error handling to vehicle form and integrate dashboard
+Act as an expert Full-Stack Developer. Our `AddVehicleForm` is passing its submission test, but we need to perform a "Refactor" to add error handling, clear the form on success, and integrate it into the Dashboard.
+
+Please do the following step-by-step:
+
+1. **Update Tests (`frontend/src/__tests__/AddVehicleForm.test.tsx`):**
+   - Add a test: "displays error message on failed submission". Mock a 400 Bad Request response, submit the form, and `await waitFor` to assert an error message appears on screen.
+   - Add a test: "clears form and calls onVehicleAdded callback on success". Pass a mock function (`const mockOnAdded = vi.fn()`) as a prop. Mock a 201 success response, submit the form, and `await waitFor` to assert the mock function was called and the input values are reset to empty strings (or 0).
+2. **Refactor Component (`frontend/src/components/AddVehicleForm.tsx`):**
+   - Accept a prop `onVehicleAdded: () => void`.
+   - Add an `error` state variable to display API errors.
+   - In the `onSubmit` handler, if `!response.ok`, parse the error and set the error state.
+   - If `response.ok`, clear all input states back to their default empty/zero values, clear any errors, and call `onVehicleAdded()`.
+3. **Integrate into Dashboard (`frontend/src/components/Dashboard.tsx`):**
+   - Import `<AddVehicleForm />` and render it above or beside the vehicle list.
+   - Extract the vehicle fetching logic inside `Dashboard` into a reusable function (e.g., `fetchVehicles`).
+   - Pass `fetchVehicles` as the `onVehicleAdded` prop to the `<AddVehicleForm />` so the list refreshes automatically when a new car is added.
